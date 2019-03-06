@@ -12,7 +12,7 @@
     <artifactId>springboot-web</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>springboot-web</name>
-    <description>Demo project for Spring Boot</description>
+    <description>springboot-web</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -59,12 +59,98 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+            </properties>
+            <activation>
+                <!-- 默认启用的环境配置 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>pre</id>
+            <properties>
+                <env>pre</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>gray</id>
+            <properties>
+                <env>gray</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env>prod</env>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
+        <!-- 主资源目录 -->
+        <resources>
+            <resource>
+                <!-- 设定主资源目录 -->
+                <directory>src/main/resources</directory>
+                <!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，不处理如下配置中包含的资源类型（剔除下如下配置中包含的资源类型） -->
+                <excludes>
+
+                                <!--<exclude>**/*.xml</exclude>-->
+                                <!--<exclude>*.properties</exclude>-->
+                                <!--<exclude>*.xml</exclude>-->
+                                <!--<exclude>ca/*</exclude>-->
+                                <!--<exclude>dll/*</exclude>-->
+                </excludes>
+            </resource>
+        </resources>
+        <!-- 打包名称使用包名+版本号 -->
+        <!-- 这里打包的文件名，必需和jenkins中shell脚本查找的文件名一致 -->
+        <finalName>${project.description}-${project.version}-${env}</finalName>
         <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>assembly/assembly.xml</descriptors>
+                    <!--<descriptor>assembly/assembly.xml</descriptor>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <!--<exclude>**/*.xml</exclude>-->
+                        <!--<exclude>*.properties</exclude>-->
+                       <!--<exclude>application.yml</exclude>-->
+                    </excludes>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
         </plugins>
     </build>
 

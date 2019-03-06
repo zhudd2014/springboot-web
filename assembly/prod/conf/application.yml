@@ -3,12 +3,12 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: prod
   datasource:
     username: root
     password: Root@1234
-    url: jdbc:mysql://localhost:3306/test_self
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.78.145.12:3306/lottery
+    driver-class-name: com.mysql.jdbc.Driver
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
