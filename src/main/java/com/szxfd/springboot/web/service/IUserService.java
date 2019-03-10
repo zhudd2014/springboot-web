@@ -26,17 +26,25 @@ import java.util.List;
  */
 public interface IUserService {
 
+    /**
+     * 综合条件查询用户列表
+     *
+     * @param userQueryVo
+     * @return
+     */
     List<UserCustom> queryUserList(UserQueryVo userQueryVo);
 
+    /**
+     * 综合查询用户数量
+     *
+     * @param userQueryVo
+     * @return
+     */
     int queryUserCount(UserQueryVo userQueryVo);
 
     User queryUserById(int id) throws Exception;
 
     List<User> queryUserByName(String name) throws Exception;
-
-    boolean insertUser(User user) throws Exception;
-
-    boolean deleteUser(int id) throws Exception;
 
     boolean updateUser(User user) throws Exception;
 }

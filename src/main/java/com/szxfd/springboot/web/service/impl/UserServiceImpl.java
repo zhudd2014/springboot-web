@@ -10,7 +10,7 @@
  */
 package com.szxfd.springboot.web.service.impl;
 
-import com.szxfd.springboot.web.dao.IUserMapper;
+import com.szxfd.springboot.web.dao.UserMapper;
 import com.szxfd.springboot.web.entity.User;
 import com.szxfd.springboot.web.entity.UserCustom;
 import com.szxfd.springboot.web.entity.UserQueryVo;
@@ -32,7 +32,7 @@ import java.util.List;
 public class UserServiceImpl implements IUserService {
 
     @Resource
-    private IUserMapper userMapper;
+    private UserMapper userMapper;
 
     @Override
     public List<UserCustom> queryUserList(UserQueryVo userQueryVo) {
@@ -52,18 +52,6 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<User> queryUserByName(String name) throws Exception {
         return userMapper.queryUserByName(name);
-    }
-
-    @Override
-    public boolean insertUser(User user) throws Exception {
-        Integer integer = userMapper.insertUser(user);
-        return integer > 0;
-    }
-
-    @Override
-    public boolean deleteUser(int id) throws Exception {
-        Integer integer = userMapper.deleteUser(id);
-        return integer > 0;
     }
 
     @Override

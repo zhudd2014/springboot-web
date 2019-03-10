@@ -57,11 +57,6 @@ public class BaseResponse<T> {
         this.obj = obj;
     }
 
-    public void setError(RespError respError) {
-        this.errorCode = respError.getCode();
-        this.errorMsg = respError.getMsg();
-    }
-
     @Override
     public String toString() {
         return "BaseResponse{" +

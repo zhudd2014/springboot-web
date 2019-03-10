@@ -1,6 +1,6 @@
 /**
  * Copyright (C), 2015-2019, XXX有限公司
- * FileName: IUserMapper
+ * FileName: UserMapper
  * Author:   admin
  * Date:     2019/3/2 14:58
  * Description:
@@ -23,7 +23,7 @@ import java.util.List;
  * @create 2019/3/2
  * @since 1.0.0
  */
-public interface IUserMapper {
+public interface UserMapper {
 
     /**
      * 用户信息综合查询
@@ -41,13 +41,30 @@ public interface IUserMapper {
      */
     int queryUserCount(UserQueryVo userQueryVo);
 
+    /**
+     * 根据id查询用户
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
     User queryUserById(int id) throws Exception;
 
+    /**
+     * 通过名字模糊查询
+     *
+     * @param name
+     * @return
+     * @throws Exception
+     */
     List<User> queryUserByName(String name) throws Exception;
 
-    Integer insertUser(User user) throws Exception;
-
-    Integer deleteUser(int id) throws Exception;
-
+    /**
+     * 根据id修改用户
+     *
+     * @param user
+     * @return
+     * @throws Exception
+     */
     Integer updateUser(User user) throws Exception;
 }

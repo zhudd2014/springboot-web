@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.szxfd.springboot.web.dao.ILotteryMapper">
+<!--命令空间-->
+<mapper namespace="com.szxfd.springboot.web.dao.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.szxfd.springboot.web.entity.Lottery">
         <id column="id" property="id" jdbcType="INTEGER"/>
@@ -16,8 +17,8 @@
             <if test="userCustom.sex!=null and userCustom.sex!=''">
                 and `user`.sex=#{userCustom.sex}
             </if>
-            <if test="userCustom.name!=null and userCustom.name!=''">
-                and `user`.`name` LIKE '%${userCustom.name }%'
+            <if test="userCustom.username!=null and userCustom.username!=''">
+                and `user`.`username` LIKE '%${userCustom.username }%'
             </if>
         </if>
         <if test="ids!=null">
@@ -35,7 +36,7 @@
 
     <!--用户信息综合查询-->
     <select id="queryUserList" parameterType="userQueryVo" resultType="userCustom">
-        <!-- SELECT * FROM `user` WHERE `user`.sex=#{userCustom.sex} AND `user`.`name` LIKE '%${userCustom.name }%';-->
+        <!-- SELECT * FROM `user` WHERE `user`.sex=#{userCustom.sex} AND `user`.`username` LIKE '%${userCustom.username }%';-->
         SELECT * FROM `user`
         <!-- where可以自动去掉条件中的第一个and-->
         <where>
@@ -68,20 +69,6 @@
     <select id="queryUserByName" parameterType="string" resultType="user">
         SELECT * FROM `user` WHERE username LIKE '%${value}%'
     </select>
-
-    <insert id="insertUser" parameterType="user">
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-        INSERT INTO `user`(username,birthday,sex,address,type) value(#{username},#{birthday},#{sex},#{address}#{type})
-        <selectKey resultType="java.lang.Integer" keyProperty="id">
-            SELECT @@IDENTITY AS ID
-        </selectKey>
-    </insert>
-
-    <delete id="deleteUser" parameterType="java.lang.Integer">
-        DELETE FROM `user` WHERE id=#{id}
-    </delete>
 
     <!--根据id更新用户-->
     <update id="updateUser" parameterType="user">
