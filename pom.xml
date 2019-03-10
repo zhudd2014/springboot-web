@@ -105,11 +105,11 @@
                 <!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，不处理如下配置中包含的资源类型（剔除下如下配置中包含的资源类型） -->
                 <excludes>
 
-                                <!--<exclude>**/*.xml</exclude>-->
-                                <!--<exclude>*.properties</exclude>-->
-                                <!--<exclude>*.xml</exclude>-->
-                                <!--<exclude>ca/*</exclude>-->
-                                <!--<exclude>dll/*</exclude>-->
+                    <!--<exclude>**/*.xml</exclude>-->
+                    <!--<exclude>*.properties</exclude>-->
+                    <!--<exclude>*.xml</exclude>-->
+                    <!--<exclude>ca/*</exclude>-->
+                    <!--<exclude>dll/*</exclude>-->
                 </excludes>
             </resource>
         </resources>
@@ -141,7 +141,7 @@
                     <excludes>
                         <!--<exclude>**/*.xml</exclude>-->
                         <!--<exclude>*.properties</exclude>-->
-                       <!--<exclude>application.yml</exclude>-->
+                        <!--<exclude>application.yml</exclude>-->
                     </excludes>
                 </configuration>
             </plugin>
@@ -150,7 +150,15 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
+            <!-- mybatis-generator自动生成代码插件 -->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <configuration>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

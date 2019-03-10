@@ -3,15 +3,6 @@
 <!--命令空间-->
 <mapper namespace="com.szxfd.springboot.web.dao.UserMapper">
 
-    <resultMap id="BaseResultMap" type="com.szxfd.springboot.web.entity.Lottery">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="lottery_name" property="lotteryName" jdbcType="VARCHAR"/>
-        <result column="lottery_desc" property="lotteryDesc" jdbcType="VARCHAR"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-        id, lottery_name, lottery_desc
-    </sql>
-
     <sql id="query_user_where">
         <if test="userCustom!=null">
             <if test="userCustom.sex!=null and userCustom.sex!=''">
@@ -72,7 +63,9 @@
 
     <!--根据id更新用户-->
     <update id="updateUser" parameterType="user">
-        UPDATE `user` SET username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} WHERE id=#{id}
+        UPDATE `user` SET username=#{username},gender=#{gender},mobile=#{mobile},address=#{address},open_id=#{open_id},
+        avatar=#{avatar},nickname=#{nickname},create_time=#{create_time},update_time=#{update_time},is_delete=#{is_delete}
+        WHERE id=#{id}
     </update>
 
 </mapper>
