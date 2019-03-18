@@ -146,4 +146,26 @@ public class UserController {
         }
         return response;
     }
+
+    @RequestMapping("/updateUserPojo")
+    public BaseResponse<User> updateUserPojo(@RequestBody User user) {
+        BaseResponse<User> response = new BaseResponse<>();
+        response.setObj(user);
+        return response;
+    }
+
+    @RequestMapping("/updateUserQueryVoPojo")
+    public BaseResponse<UserQueryVo> updateUserQueryVoPojo(@RequestBody UserQueryVo userQueryVo) {
+        BaseResponse<UserQueryVo> response = new BaseResponse<>();
+        response.setObj(userQueryVo);
+        return response;
+    }
+
+    @RequestMapping("/updateUsers")
+    public BaseResponse<List<User>> updateUsers(@RequestBody List<User> users) {
+        BaseResponse<List<User>> response = new BaseResponse<>();
+        response.setObj(users);
+        return response;
+    }
+
 }

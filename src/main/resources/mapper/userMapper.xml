@@ -46,12 +46,12 @@
     </select>
 
 
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        from lottery
-        where id = #{id,jdbcType=INTEGER}
-    </select>
+    <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">-->
+        <!--select-->
+        <!--<include refid="Base_Column_List"/>-->
+        <!--from lottery-->
+        <!--where id = #{id,jdbcType=INTEGER}-->
+    <!--</select>-->
 
     <select id="queryUserById" parameterType="int" resultType="user">
         SELECT * FROM user WHERE id = #{id}

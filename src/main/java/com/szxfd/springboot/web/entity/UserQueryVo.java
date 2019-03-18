@@ -11,6 +11,7 @@
 package com.szxfd.springboot.web.entity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -22,9 +23,27 @@ import java.util.List;
  */
 public class UserQueryVo {
 
-    private List<Integer> ids;
+    /**
+     * 基本数据类型绑定
+     */
+    private String uuid;
 
-    //用户信息
+    /**
+     * List类型绑定
+     */
+    private List<Integer> ids;
+    /**
+     * 数组类型绑定
+     */
+    private String uuids[];
+    /**
+     * List类型绑定
+     */
+    private List<UserCustom> userCustoms;
+
+    /**
+     * 包装pojo类型绑定
+     */
     private UserCustom userCustom;
 
     public List<Integer> getIds() {
@@ -41,5 +60,29 @@ public class UserQueryVo {
 
     public void setUserCustom(UserCustom userCustom) {
         this.userCustom = userCustom;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String[] getUuids() {
+        return uuids;
+    }
+
+    public void setUuids(String[] uuids) {
+        this.uuids = uuids;
+    }
+
+    public List<UserCustom> getUserCustoms() {
+        return userCustoms;
+    }
+
+    public void setUserCustoms(List<UserCustom> userCustoms) {
+        this.userCustoms = userCustoms;
     }
 }
