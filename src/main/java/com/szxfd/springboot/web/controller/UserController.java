@@ -10,13 +10,13 @@
  */
 package com.szxfd.springboot.web.controller;
 
-import com.szxfd.springboot.web.entity.BaseResponse;
-import com.szxfd.springboot.web.entity.RespError;
-import com.szxfd.springboot.web.entity.User;
-import com.szxfd.springboot.web.entity.UserQueryVo;
+import com.szxfd.springboot.web.entity.*;
 import com.szxfd.springboot.web.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -40,40 +40,42 @@ public class UserController {
         return "hello phone";
     }
 
-    @RequestMapping("/findUserById/{id}")
-    public BaseResponse<User> findUserById(@PathVariable("id") int id) {
-        System.out.println("queryUserById");
-        BaseResponse response = new BaseResponse();
-        try {
-            response.setSuccess(true);
-            response.setObj(userService.queryUserById(id));
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.setSuccess(false);
-            response.setErrorCode(RespError.MYBATIS_ERROR.getCode());
-            response.setErrorMsg(e.getMessage());
-        }
-        return response;
-    }
+//    @RequestMapping("/findUserById/{id}")
+//    public BaseResponse<User> findUserById(@RequestBody UserCustom userCustom) {
+////        System.out.println("queryUserById");
+////        BaseResponse response = new BaseResponse();
+////        try {
+////            response.setSuccess(true);
+////            response.setObj(userService.queryUserById(id));
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////            response.setSuccess(false);
+////            response.setErrorCode(RespError.MYBATIS_ERROR.getCode());
+////            response.setErrorMsg(e.getMessage());
+////        }
+////        return response;
+//        return userService.queryUserById(userCustom);
+//    }
+//
+//    @RequestMapping("/findUserByName/{name}")
+//    public BaseResponse<List<User>> findUserByName(@RequestBody UserCustom userCustom) {
+//        System.out.println("queryUserByName....");
+////        BaseResponse response = new BaseResponse();
+////        try {
+////            response.setSuccess(true);
+////            response.setObj(userService.queryUserByName(name));
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////            response.setSuccess(false);
+////            response.setErrorCode(RespError.MYBATIS_ERROR.getCode());
+////            response.setErrorMsg(e.getMessage());
+////        }
+////        return response;
+//        return userService.queryUserByName(userCustom);
+//    }
 
-    @RequestMapping("/findUserByName/{name}")
-    public BaseResponse<List<User>> findUserByName(@PathVariable("name") String name) {
-        System.out.println("queryUserByName....");
-        BaseResponse response = new BaseResponse();
-        try {
-            response.setSuccess(true);
-            response.setObj(userService.queryUserByName(name));
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.setSuccess(false);
-            response.setErrorCode(RespError.MYBATIS_ERROR.getCode());
-            response.setErrorMsg(e.getMessage());
-        }
-        return response;
-    }
-
-    @RequestMapping(value = "/findUser", method = RequestMethod.POST)
-    public BaseResponse<List<User>> findUser(@RequestBody UserQueryVo userQueryVo) {
+    @RequestMapping(value = "/findUserList", method = RequestMethod.POST)
+    public BaseResponse<List<User>> findUserList(@RequestBody UserQueryVo userQueryVo) {
         System.out.println("findUser....");
         BaseResponse response = new BaseResponse();
         try {
@@ -147,25 +149,34 @@ public class UserController {
         return response;
     }
 
-    @RequestMapping("/updateUserPojo")
-    public BaseResponse<User> updateUserPojo(@RequestBody User user) {
-        BaseResponse<User> response = new BaseResponse<>();
-        response.setObj(user);
-        return response;
+//    @RequestMapping("/updateUserPojo")
+//    public BaseResponse<User> updateUserPojo(@RequestBody User user) {
+//        BaseResponse<User> response = new BaseResponse<>();
+//        response.setObj(user);
+//        return response;
+//    }
+//
+//    @RequestMapping("/updateUserQueryVoPojo")
+//    public BaseResponse<UserQueryVo> updateUserQueryVoPojo(@RequestBody UserQueryVo userQueryVo) {
+//        BaseResponse<UserQueryVo> response = new BaseResponse<>();
+//        response.setObj(userQueryVo);
+//        return response;
+//    }
+//
+//    @RequestMapping("/updateUsers")
+//    public BaseResponse<List<User>> updateUsers(@RequestBody List<User> users) {
+//        BaseResponse<List<User>> response = new BaseResponse<>();
+//        response.setObj(users);
+//        return response;
+//    }
+
+    @RequestMapping("/registerUser")
+    public BaseResponse<Integer> registerUser(@RequestBody UserCustom userCustom) {
+        return userService.registerUser(userCustom);
     }
 
-    @RequestMapping("/updateUserQueryVoPojo")
-    public BaseResponse<UserQueryVo> updateUserQueryVoPojo(@RequestBody UserQueryVo userQueryVo) {
-        BaseResponse<UserQueryVo> response = new BaseResponse<>();
-        response.setObj(userQueryVo);
-        return response;
+    @RequestMapping("/queryUserAndLotteryesByUserId")
+    public BaseResponse<UserCustom> queryUserAndLotteryesByUserId(@RequestBody UserCustom userCustom) {
+        return userService.queryUserAndLotteryes(userCustom);
     }
-
-    @RequestMapping("/updateUsers")
-    public BaseResponse<List<User>> updateUsers(@RequestBody List<User> users) {
-        BaseResponse<List<User>> response = new BaseResponse<>();
-        response.setObj(users);
-        return response;
-    }
-
 }

@@ -57,4 +57,11 @@ public interface PrizeMapper {
      * @return
      */
     List<PrizeCustom> queryPrizeList(PrizeQueryVo prizeQueryVo);
+
+    /**
+     * 查询奖品数量
+     *
+     * @return
+     */
+    int queryPrizeCount(PrizeQueryVo prizeQueryVo);
 }

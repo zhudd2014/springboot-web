@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--命令空间-->
+<mapper namespace="com.szxfd.springboot.web.dao.ParticipantMapper">
+
+    <sql id="query_participant_where">
+        <if test="participantCustom!=null">
+            <if test="participantCustom.lottery_id!=null and participantCustom.lottery_id!=''">
+                and `participant`.lottery_id LIKE '%${participantCustom.lottery_id }%'
+            </if>
+            <if test="participantCustom.lottery_title!=null and participantCustom.lottery_title!=''">
+                and `participant`.`lottery_title` LIKE '%${participantCustom.lottery_title }%'
+            </if>
+            <if test="participantCustom.user_id!=null and participantCustom.user_id!=''">
+                and `participant`.`user_id` = #{participantCustom.user_id}
+            </if>
+            <if test="participantCustom.username!=null and participantCustom.username!=''">
+                and `participant`.`username` = #{participantCustom.username}
+            </if>
+        </if>
+        <if test="ids!=null">
+            <foreach collection="ids" item="participant_id" open="and (" close=")" separator="or">
+                <!--每个遍历需要拼接的串-->
+                id=#{participant_id}
+            </foreach>
+            <!--使用实现方式2：and id in (1,2,3)-->
+            <foreach collection="ids" item="participant_id" open="and id in (" close=")" separator=",">
+                <!--每个遍历需要拼接的串-->
+                #{participant_id}
+            </foreach>
+        </if>
+    </sql>
+
+    <sql id="all_insert_keys">
+        `lottery_id`,`lottery_title`,`user_id`,`username`,`jion_time`,`create_time`
+    </sql>
+
+    <!--用户信息综合查询-->
+    <select id="queryParticipantList" parameterType="participantQueryVo" resultType="participantCustom">
+        SELECT * FROM `participant`
+        <!-- where可以自动去掉条件中的第一个and-->
+        <where>
+            <!--refid为引用sql片段的id，如果refid不在本mapper文件中，需要在前面加上namespace-->
+            <include refid="query_participant_where"></include>
+            <!--在这里可以继续引用其他的sql片段-->
+        </where>
+    </select>
+
+    <!--用户信息综合查询的总数-->
+    <select id="queryParticipantCount" parameterType="participantQueryVo" resultType="int">
+        SELECT count(*) FROM `participant`
+        <where>
+            <include refid="query_participant_where"></include>
+        </where>
+    </select>
+
+    <select id="queryParticipantById" parameterType="int" resultType="participantCustom">
+        SELECT * FROM `participant` WHERE id = #{id}
+    </select>
+
+    <!--<select id="queryparticipantByTitle" parameterType="string" resultType="participantCustom">-->
+    <!--SELECT * FROM `participant` WHERE title LIKE '%${value}%'-->
+    <!--</select>-->
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="participantCustom">
+        insert into `participant`(
+        <include refid="all_insert_keys"/>
+        )
+        values(#{lottery_id},#{lottery_title},#{user_id},#{username},sysdate(),sysdate())
+    </insert>
+
+    <update id="removeInLogical" parameterType="int">
+        update `participant` set `is_delete` = true and `update_time` = sysdate() where `id` = #{value}
+    </update>
+
+    <!--<update id="update" parameterType="participantCustom">-->
+    <!--update `participant` set-->
+    <!--`title` = #{title} and `desc` = #{desc} and `price` = #{price} and `quantity` = #{quantity} and `update_time` = sysdate()-->
+    <!--</update>-->
+
+</mapper>

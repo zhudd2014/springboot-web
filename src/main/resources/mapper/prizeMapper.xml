@@ -31,13 +31,12 @@
         </if>
     </sql>
 
-    <sql id="all_keys">
-        `title`,`desc`,`price`,`quantity`
+    <sql id="all_insert_keys">
+        `title`,`desc`,`price`,`quantity`,`create_time`
     </sql>
 
     <!--用户信息综合查询-->
     <select id="queryPrizeList" parameterType="prizeQueryVo" resultType="prizeCustom">
-        <!-- SELECT * FROM `user` WHERE `user`.sex=#{userCustom.sex} AND `user`.`username` LIKE '%${userCustom.username }%';-->
         SELECT * FROM `prize`
         <!-- where可以自动去掉条件中的第一个and-->
         <where>
@@ -48,8 +47,8 @@
     </select>
 
     <!--用户信息综合查询的总数-->
-    <select id="queryUserCount" parameterType="userQueryVo" resultType="int">
-        SELECT count(*) FROM `user`
+    <select id="queryPrizeCount" parameterType="prizeQueryVo" resultType="int">
+        SELECT count(*) FROM `prize`
         <where>
             <include refid="query_prize_where"></include>
         </where>
@@ -65,9 +64,19 @@
 
     <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="prizeCustom">
         insert into `prize`(
-        <include refid="all_keys"/>
+        <include refid="all_insert_keys"/>
         )
-        values(#{title},#{desc},#{price},#{quantity})
+        values(#{title},#{desc},#{price},#{quantity},sysdate())
     </insert>
+
+    <update id="removeInLogical" parameterType="int">
+        update `prize` set `is_delete` = true, `update_time` = sysdate() where `id` = #{value}
+    </update>
+
+    <update id="update" parameterType="prizeCustom">
+        update `prize` set
+        `title` = #{title}, `desc` = #{desc}, `price` = #{price}, `quantity` = #{quantity}, `update_time` = sysdate()
+        where `id` = #{id}
+    </update>
 
 </mapper>

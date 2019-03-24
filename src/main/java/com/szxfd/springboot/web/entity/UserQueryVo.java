@@ -11,7 +11,6 @@
 package com.szxfd.springboot.web.entity;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br>

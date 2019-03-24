@@ -12,11 +12,14 @@ package com.szxfd.springboot.web.controller;
 
 import com.szxfd.springboot.web.entity.BaseResponse;
 import com.szxfd.springboot.web.entity.PrizeCustom;
+import com.szxfd.springboot.web.entity.PrizeQueryVo;
 import com.szxfd.springboot.web.service.IPrizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -33,24 +36,46 @@ public class PrizeController {
     @Autowired
     private IPrizeService prizeService;
 
+    /**
+     * 添加奖品
+     *
+     * @param prizeCustom
+     * @return
+     */
     @RequestMapping("/add")
-    public BaseResponse add(@RequestBody PrizeCustom prizeCustom) {
-//        PrizeCustom prizeCustom = new PrizeCustom();
-//        prizeCustom.setTitle(title);
-//        prizeCustom.setDesc(desc);
-//        prizeCustom.setPrice(price);
-//        prizeCustom.setQuantity(quantity);
-        return prizeService.add(prizeCustom);
+    public BaseResponse<Integer> add(@RequestBody PrizeCustom prizeCustom) {
+        return prizeService.insert(prizeCustom);
     }
 
     @RequestMapping("/queryById")
-    public BaseResponse queryById(@RequestBody PrizeCustom prizeCustom) {
-        return prizeService.queryById(prizeCustom.getId());
+    public BaseResponse<PrizeCustom> queryById(@RequestBody PrizeCustom prizeCustom) {
+        return prizeService.queryPrizeById(prizeCustom);
     }
 
+    /**
+     * 通过title匹配奖品
+     *
+     * @param prizeCustom
+     * @return
+     */
     @RequestMapping("/queryByTitle")
-    public BaseResponse queryByTitle(@RequestBody PrizeCustom prizeCustom) {
-        return prizeService.queryByTitle(prizeCustom.getTitle());
+    public BaseResponse<List<PrizeCustom>> queryByTitle(@RequestBody PrizeCustom prizeCustom) {
+        return prizeService.queryPrizeByTitle(prizeCustom.getTitle());
+    }
+
+    @RequestMapping("/updatePrize")
+    public BaseResponse<Boolean> updatePrize(@RequestBody PrizeCustom prizeCustom) {
+        return prizeService.update(prizeCustom);
+    }
+
+    @RequestMapping("/queryPrizeList")
+    public BaseResponse<List<PrizeCustom>> queryPrizeList(@RequestBody PrizeQueryVo prizeQueryVo) {
+        return prizeService.queryPrizeList(prizeQueryVo);
+    }
+
+    @RequestMapping("/queryPrizeCount")
+    public BaseResponse<Integer> queryPrizeCount(@RequestBody PrizeQueryVo prizeQueryVo) {
+        return prizeService.queryPrizeCount(prizeQueryVo);
     }
 
 }

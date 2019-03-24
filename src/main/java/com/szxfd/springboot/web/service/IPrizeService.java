@@ -8,15 +8,17 @@ import java.util.List;
 
 public interface IPrizeService {
 
-    BaseResponse add(PrizeCustom prizeCustom);
+    BaseResponse<Integer> insert(PrizeCustom prizeCustom);
 
-    boolean remove(int id);
+    BaseResponse<Boolean> removeInLogical(PrizeCustom prizeCustom);
 
-    boolean update(PrizeCustom prizeCustom);
+    BaseResponse<Boolean> update(PrizeCustom prizeCustom);
 
-    BaseResponse<PrizeCustom> queryById(int id);
+    BaseResponse<PrizeCustom> queryPrizeById(PrizeCustom prizeCustom);
 
-    BaseResponse<List<PrizeCustom>> queryByTitle(String title);
+    BaseResponse<List<PrizeCustom>> queryPrizeByTitle(String title);
 
-    List<PrizeCustom> queryList(PrizeQueryVo prizeQueryVo);
+    BaseResponse<List<PrizeCustom>> queryPrizeList(PrizeQueryVo prizeQueryVo);
+
+    BaseResponse<Integer> queryPrizeCount(PrizeQueryVo prizeQueryVo);
 }

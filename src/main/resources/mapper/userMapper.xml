@@ -3,13 +3,55 @@
 <!--命令空间-->
 <mapper namespace="com.szxfd.springboot.web.dao.UserMapper">
 
+    <resultMap id="userAndLotterys" type="com.szxfd.springboot.web.entity.UserCustom">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="gender" property="gender"/>
+        <result column="mobile" property="mobile"/>
+        <result column="address" property="address"/>
+        <result column="open_id" property="open_id"/>
+        <result column="avatar" property="avatar"/>
+        <result column="nickname" property="nickname"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="is_delete" property="is_delete"/>
+        <collection property="lotteryCustoms" ofType="com.szxfd.springboot.web.entity.LotteryCustom">
+            <id column="id" property="id"/>
+            <result column="title" property="title"/>
+            <result column="banner" property="banner"/>
+            <result column="desc" property="desc"/>
+            <result column="open_type" property="open_type"/>
+            <result column="open_date" property="open_date"/>
+            <result column="open_participator_num" property="open_participator_num"/>
+            <result column="sponsor" property="sponsor"/>
+            <result column="status" property="status"/>
+            <result column="award" property="award"/>
+            <result column="create_time" property="create_time"/>
+            <result column="update_time" property="update_time"/>
+            <result column="is_delete" property="is_delete"/>
+        </collection>
+    </resultMap>
+
     <sql id="query_user_where">
         <if test="userCustom!=null">
-            <if test="userCustom.sex!=null and userCustom.sex!=''">
-                and `user`.sex=#{userCustom.sex}
-            </if>
             <if test="userCustom.username!=null and userCustom.username!=''">
                 and `user`.`username` LIKE '%${userCustom.username }%'
+            </if>
+            and `user`.gender=#{userCustom.gender}
+            <if test="userCustom.mobile!=null and userCustom.mobile!=''">
+                and `user`.`mobile` LIKE '%${userCustom.mobile }%'
+            </if>
+            <if test="userCustom.address!=null and userCustom.address!=''">
+                and `user`.`address` like '%${userCustom.address}%'
+            </if>
+            <if test="userCustom.open_id!=null and userCustom.open_id!=''">
+                and `user`.`open_id` like '%${userCustom.open_id}%'
+            </if>
+            <if test="userCustom.avatar!=null and userCustom.avatar!=''">
+                and `user`.`avatar` like '%${userCustom.avatar}%'
+            </if>
+            <if test="userCustom.nickname!=null and userCustom.nickname!=''">
+                and `user`.`nickname` like '%${userCustom.nickname}%'
             </if>
         </if>
         <if test="ids!=null">
@@ -45,14 +87,6 @@
         </where>
     </select>
 
-
-    <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">-->
-        <!--select-->
-        <!--<include refid="Base_Column_List"/>-->
-        <!--from lottery-->
-        <!--where id = #{id,jdbcType=INTEGER}-->
-    <!--</select>-->
-
     <select id="queryUserById" parameterType="int" resultType="user">
         SELECT * FROM user WHERE id = #{id}
     </select>
@@ -67,5 +101,31 @@
         avatar=#{avatar},nickname=#{nickname},create_time=#{create_time},update_time=#{update_time},is_delete=#{is_delete}
         WHERE id=#{id}
     </update>
+
+    <select id="queryUserAndLotteryes" resultMap="userAndLotterys" parameterType="int">
+        SELECT
+            `user`.*,
+            `lottery`.*
+        FROM
+            `user`,
+            `participant`,
+            `lottery`
+        WHERE
+            `user`.id=`participant`.user_id
+        AND
+            `participant`.lottery_id=`lottery`.id
+        AND `user`.id=#{value}
+    </select>
+
+    <sql id="insert_all_keys">
+        `username`,`gender`,`mobile`,`address`,`open_id`,`avatar`,`nickname`,`create_time`
+    </sql>
+
+    <insert id="insertUser" keyProperty="id" useGeneratedKeys="true" parameterType="userCustom">
+        insert into `user`(
+        <include refid="insert_all_keys"></include>
+        )
+        values(#{username},#{gender},#{mobile},#{address},#{open_id},#{avatar},#{nickname},sysdate())
+    </insert>
 
 </mapper>

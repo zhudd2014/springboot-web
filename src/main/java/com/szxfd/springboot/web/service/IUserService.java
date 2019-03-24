@@ -10,6 +10,7 @@
  */
 package com.szxfd.springboot.web.service;
 
+import com.szxfd.springboot.web.entity.BaseResponse;
 import com.szxfd.springboot.web.entity.User;
 import com.szxfd.springboot.web.entity.UserCustom;
 import com.szxfd.springboot.web.entity.UserQueryVo;
@@ -42,9 +43,13 @@ public interface IUserService {
      */
     int queryUserCount(UserQueryVo userQueryVo);
 
-    User queryUserById(int id) throws Exception;
-
-    List<User> queryUserByName(String name) throws Exception;
+//    User queryUserById(UserCustom userCustom);
+//
+//    List<User> queryUserByName(UserCustom userCustom);
 
     boolean updateUser(User user) throws Exception;
+
+    BaseResponse<UserCustom> queryUserAndLotteryes(UserCustom userCustom);
+
+    BaseResponse<Integer> registerUser(UserCustom userCustom);
 }

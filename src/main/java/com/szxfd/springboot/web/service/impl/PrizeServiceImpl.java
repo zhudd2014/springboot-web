@@ -35,7 +35,7 @@ public class PrizeServiceImpl implements IPrizeService {
     private PrizeMapper prizeMapper;
 
     @Override
-    public BaseResponse add(PrizeCustom prizeCustom) {
+    public BaseResponse<Integer> insert(PrizeCustom prizeCustom) {
         BaseResponse response = new BaseResponse();
         if (null == prizeCustom) {
             response.setSuccess(false);
@@ -66,6 +66,7 @@ public class PrizeServiceImpl implements IPrizeService {
         int result = prizeMapper.insert(prizeCustom);
         if (result >= 0) {
             response.setSuccess(true);
+            response.setObj(prizeCustom.getId());
         } else {
             response.setSuccess(false);
             response.setErrorMsg("插入数据库失败");
@@ -74,31 +75,73 @@ public class PrizeServiceImpl implements IPrizeService {
     }
 
     @Override
-    public boolean remove(int id) {
-        //先查询奖品是否已经存在
-        PrizeCustom prizeCustom = prizeMapper.queryPrizeById(id);
+    public BaseResponse<Boolean> removeInLogical(PrizeCustom prizeCustom) {
+        BaseResponse<Boolean> response = new BaseResponse();
         if (null == prizeCustom) {
-            return false;
+            response.setSuccess(false);
+            response.setErrorMsg("prizeCusom is null");
+            return response;
         }
-        int result = prizeMapper.removeInLogical(id);
-        return result >= 0;
-    }
-
-    @Override
-    public boolean update(PrizeCustom prizeCustom) {
-        return false;
-    }
-
-    @Override
-    public BaseResponse<PrizeCustom> queryById(int id) {
-        BaseResponse<PrizeCustom> response = new BaseResponse<>();
-        PrizeCustom prizeCustom = prizeMapper.queryPrizeById(id);
-        response.setObj(prizeCustom);
+        //先查询奖品是否已经存在
+        PrizeCustom prizeCustomOld = prizeMapper.queryPrizeById(prizeCustom.getId());
+        if (null == prizeCustomOld) {
+            response.setSuccess(false);
+            response.setErrorMsg("data not found in database");
+            return response;
+        }
+        int result = prizeMapper.removeInLogical(prizeCustom.getId());
+        if (result > 0) {
+            response.setSuccess(true);
+            response.setObj(true);
+        } else {
+            response.setSuccess(false);
+            response.setErrorMsg("update  fail in database");
+        }
         return response;
     }
 
     @Override
-    public BaseResponse<List<PrizeCustom>> queryByTitle(String title) {
+    public BaseResponse<Boolean> update(PrizeCustom prizeCustom) {
+        BaseResponse<Boolean> response = new BaseResponse();
+        if (null == prizeCustom) {
+            response.setSuccess(false);
+            response.setErrorMsg("prizeCustom is null");
+            return response;
+        }
+        //先查询奖品是否已经存在
+        PrizeCustom prizeCustomOld = prizeMapper.queryPrizeById(prizeCustom.getId());
+        if (null == prizeCustomOld) {
+            response.setSuccess(false);
+            response.setErrorMsg("data not found in database");
+            return response;
+        }
+        int update = prizeMapper.update(prizeCustom);
+        if (update > 0) {
+            response.setSuccess(true);
+            response.setObj(true);
+        } else {
+            response.setSuccess(false);
+            response.setErrorMsg("update  fail in database");
+        }
+        return response;
+    }
+
+    @Override
+    public BaseResponse<PrizeCustom> queryPrizeById(PrizeCustom prizeCustom) {
+        BaseResponse<PrizeCustom> response = new BaseResponse<>();
+        if (null == prizeCustom) {
+            response.setSuccess(false);
+            response.setErrorMsg("prizeCustom is null ");
+            return response;
+        }
+        PrizeCustom prizeCustomQuery = prizeMapper.queryPrizeById(prizeCustom.getId());
+        response.setSuccess(true);
+        response.setObj(prizeCustomQuery);
+        return response;
+    }
+
+    @Override
+    public BaseResponse<List<PrizeCustom>> queryPrizeByTitle(String title) {
         BaseResponse<List<PrizeCustom>> response = new BaseResponse<>();
         List<PrizeCustom> prizeCustoms = prizeMapper.queryPrizeByTitle(title);
         response.setObj(prizeCustoms);
@@ -106,7 +149,20 @@ public class PrizeServiceImpl implements IPrizeService {
     }
 
     @Override
-    public List<PrizeCustom> queryList(PrizeQueryVo prizeQueryVo) {
-        return null;
+    public BaseResponse<List<PrizeCustom>> queryPrizeList(PrizeQueryVo prizeQueryVo) {
+        BaseResponse<List<PrizeCustom>> response = new BaseResponse<>();
+        List<PrizeCustom> prizeCustoms = prizeMapper.queryPrizeList(prizeQueryVo);
+        response.setSuccess(true);
+        response.setObj(prizeCustoms);
+        return response;
+    }
+
+    @Override
+    public BaseResponse<Integer> queryPrizeCount(PrizeQueryVo prizeQueryVo) {
+        BaseResponse<Integer> response = new BaseResponse<>();
+        int count = prizeMapper.queryPrizeCount(prizeQueryVo);
+        response.setSuccess(true);
+        response.setObj(count);
+        return response;
     }
 }

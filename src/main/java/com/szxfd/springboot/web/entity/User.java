@@ -27,7 +27,7 @@ public class User implements Serializable {
     private String nickname;
     private String create_time;
     private String update_time;
-    private int is_delete;
+    private boolean is_delete;
 
     public int getId() {
         return id;
@@ -109,11 +109,11 @@ public class User implements Serializable {
         this.update_time = update_time;
     }
 
-    public int getIs_delete() {
+    public boolean getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(int is_delete) {
+    public void setIs_delete(boolean is_delete) {
         this.is_delete = is_delete;
     }
 

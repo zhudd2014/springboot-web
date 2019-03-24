@@ -10,6 +10,8 @@
  */
 package com.szxfd.springboot.web.entity;
 
+import java.util.List;
+
 /**
  * 〈一句话功能简述〉<br>
  * 〈用户拓展类〉
@@ -21,4 +23,16 @@ package com.szxfd.springboot.web.entity;
 public class UserCustom extends User {
 
     //可以在User基础上拓展一些属性
+    /**
+     * 该user参加的所有活动
+     */
+    private List<LotteryCustom> lotteryCustoms;
+
+    public List<LotteryCustom> getLotteryCustoms() {
+        return lotteryCustoms;
+    }
+
+    public void setLotteryCustoms(List<LotteryCustom> lotteryCustoms) {
+        this.lotteryCustoms = lotteryCustoms;
+    }
 }

@@ -67,4 +67,19 @@ public interface UserMapper {
      * @throws Exception
      */
     Integer updateUser(User user) throws Exception;
+
+    /**
+     * 查询指定用户信息及参加的所有活动信息
+     *
+     * @return
+     */
+    UserCustom queryUserAndLotteryes(int id);
+
+    /**
+     * 增加记录
+     *
+     * @param userCustom
+     * @return
+     */
+    int insertUser(UserCustom userCustom);
 }

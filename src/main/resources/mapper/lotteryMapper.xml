@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.szxfd.springboot.web.dao.LotteryMapper">
+
+    <resultMap id="lotteryAndUsers" type="com.szxfd.springboot.web.entity.LotteryCustom">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="desc" property="desc"/>
+        <result column="banner" property="banner"/>
+        <result column="sponsor" property="sponsor"/>
+        <result column="open_type" property="open_type"/>
+        <result column="open_date" property="open_date"/>
+        <result column="open_participator_num" property="open_participator_num"/>
+        <result column="status" property="status"/>
+        <result column="award" property="award"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="is_delete" property="is_delete"/>
+        <collection property="userCustoms" ofType="com.szxfd.springboot.web.entity.UserCustom">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="gender" property="gender"/>
+            <result column="mobile" property="mobile"/>
+            <result column="address" property="address"/>
+            <result column="open_id" property="open_id"/>
+            <result column="avatar" property="avatar"/>
+            <result column="nickname" property="nickname"/>
+            <result column="create_time" property="create_time"/>
+            <result column="update_time" property="update_time"/>
+            <result column="is_delete" property="is_delete"/>
+        </collection>
+    </resultMap>
+
+    <sql id="query_lottery_where">
+        <if test="lotteryCustom!=null">
+            <if test="lotteryCustom.title!=null and lotteryCustom.title!=''">
+                and `lottery`.title LIKE '%${lotteryCustom.title }%'
+            </if>
+            <if test="lotteryCustom.desc!=null and lotteryCustom.desc!=''">
+                and `lottery`.`desc` LIKE '%${lotteryCustom.desc }%'
+            </if>
+            <if test="lotteryCustom.banner!=null and lotteryCustom.banner!=''">
+                and `lottery`.`banner` = #{lotteryCustom.banner}
+            </if>
+            <if test="lotteryCustom.open_type!=null and lotteryCustom.open_type!=''">
+                and `lottery`.`open_type` = #{lotteryCustom.open_type}
+            </if>
+            <if test="lotteryCustom.open_date!=null and lotteryCustom.open_date!=''">
+                and `lottery`.`open_date` = #{lotteryCustom.open_date}
+            </if>
+            <if test="lotteryCustom.open_participator_num!=null and lotteryCustom.open_participator_num!=''">
+                and `lottery`.`open_participator_num` = #{lotteryCustom.open_participator_num}
+            </if>
+            <if test="lotteryCustom.status!=null and lotteryCustom.status!=''">
+                and `lottery`.`status` = #{lotteryCustom.status}
+            </if>
+        </if>
+        <if test="ids!=null">
+            <foreach collection="ids" item="lottery_id" open="and (" close=")" separator="or">
+                <!--每个遍历需要拼接的串-->
+                id=#{lottery_id}
+            </foreach>
+            <!--使用实现方式2：and id in (1,2,3)-->
+            <foreach collection="ids" item="lottery_id" open="and id in (" close=")" separator=",">
+                <!--每个遍历需要拼接的串-->
+                #{lottery_id}
+            </foreach>
+        </if>
+    </sql>
+
+    <select id="queryById" resultType="lotteryCustom" parameterType="java.lang.Integer">
+        select *
+        from lottery
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <sql id="all_insert_keys">
+        `title`,`desc`,`banner`,`sponsor`,`create_time`
+    </sql>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="lotteryCustom">
+        insert into `lottery`(
+        <include refid="all_insert_keys"/>
+        )
+        values(#{title},#{desc},#{banner},#{sponsor},sysdate())
+    </insert>
+
+    <update id="deleteById" parameterType="int">
+        update `lottery`
+        set `is_delete` = true,`update_time` = sysdate()
+        where `id` = #{value};
+    </update>
+
+    <update id="updateById" parameterType="lotteryCustom">
+        update `lottery`
+        set `title` = #{title},`desc` = #{desc},`banner` = #{banner},`sponsor` = #{sponsor},`update_time` = sysdate()
+        where `id`=#{id}
+    </update>
+
+    <!--设置开奖方式-->
+    <update id="updateLotteryWay" parameterType="lotteryCustom">
+        update `lottery`
+        set `open_type`=#{open_type},`open_date`=#{open_date},`open_participator_num`=#{open_participator_num},`status`=#{status}
+        where `id`=#{id}
+    </update>
+
+    <!--设置奖项及中奖人-->
+    <update id="updateAwardsAndWinners" parameterType="lotteryCustom">
+        update `lottery`
+        set `award`=#{award}
+        where `id`=#{id}
+    </update>
+
+    <select id="queryLotteryList" parameterType="lotteryQueryVo" resultType="lotteryCustom">
+        select * from `lottery`
+        <where>
+            <include refid="query_lottery_where"></include>
+        </where>
+    </select>
+
+    <select id="queryLotteryCount" parameterType="lotteryQueryVo" resultType="int">
+        select count(*) from `lottery`
+        <where>
+            <include refid="query_lottery_where"></include>
+        </where>
+    </select>
+
+    <select id="queryLotteryAndUsers" resultMap="lotteryAndUsers" parameterType="int">
+        SELECT
+            `lottery`.*,
+            `user`.*
+        FROM
+            `lottery`,
+            `participant`,
+            `user`
+        WHERE
+			`lottery`.id=`participant`.lottery_id
+        AND
+            `participant`.user_id=`user`.id
+        AND
+			`participant`.lottery_id=#{value}
+    </select>
+
+</mapper>

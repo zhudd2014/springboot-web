@@ -1,0 +1,706 @@
+{
+	"info": {
+		"_postman_id": "a7c2f4cc-b0cb-4aaf-a14a-bec96250e314",
+		"name": "抽检小程序接口",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "奖品",
+			"item": [
+				{
+					"name": "添加奖品-单个",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"心相印纸巾\",\n\t\"desc\":\"请胡顺华\",\n\t\"price\":4.8,\n\t\"quantity\":1000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/prize/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"prize",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询奖品-根据id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/prize/queryById",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"prize",
+								"queryById"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询奖品-根据title",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"Mac\"\t\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/prize/queryByTitle",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"prize",
+								"queryByTitle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改奖品-单个",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":5,\n\t\"title\":\"小米只能音箱\",\n\t\"desc\":\"超远范围\",\n\t\"price\":98,\n\t\"quantity\":500\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/prize/updatePrize",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"prize",
+								"updatePrize"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询奖品集合-参数方式1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"ids\":[1,2]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/prize/queryPrizeList",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"prize",
+								"queryPrizeList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询奖品集合-参数方式2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"prizeCustom\":{\n\t\t\"title\":\"小米\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/prize/queryPrizeList",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"prize",
+								"queryPrizeList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询奖品数量",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"prizeCustom\":{\n\t\t\"title\":\"小米\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/prize/queryPrizeCount",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"prize",
+								"queryPrizeCount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "活动",
+			"item": [
+				{
+					"name": "添加活动-单个添加",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"春节抽奖\",\n\t\"desc\":\"回馈老客户\",\n\t\"banner\":\"12456.png\",\n\t\"sponsor\":\"武科大赞助\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/lottery/createLottery",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lottery",
+								"createLottery"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改活动",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":1,\n\t\"title\":\"春节抽奖\",\n\t\"desc\":\"回馈老客户\",\n\t\"banner\":\"12456.png\",\n\t\"sponsor\":\"张璐个人赞助\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/lottery/updateLottery",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lottery",
+								"updateLottery"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询活动",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/lottery/queryLotteryById",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lottery",
+								"queryLotteryById"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询参与活动的所有人",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/lottery/queryLotteryAndUsersByLotteryId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lottery",
+								"queryLotteryAndUsersByLotteryId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "设置奖项和中奖者",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":1,\n\t\"awardBean\":{\n\t\t\"award1\":{\n\t\t\t\"prizes\":[\n\t\t\t\t{\n\t\t\t\t\t\"prizeId\":1,\n\t\t\t\t\t\"quantity\":1\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"winerIds\":[1]\n\t\t},\n\t\t\"award2\":{\n\t\t\t\"prizes\":[\n\t\t\t\t{\n\t\t\t\t\t\"prizeId\":2,\n\t\t\t\t\t\"quantity\":1\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"winerIds\":[2]\n\t\t},\n\t\t\"award3\":{\n\t\t\t\"prizes\":[\n\t\t\t\t{\n\t\t\t\t\t\"prizeId\":3,\n\t\t\t\t\t\"quantity\":1\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"prizeId\":4,\n\t\t\t\t\t\"quantity\":1\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"winerIds\":[3,4]\n\t\t},\n\t\t\"award4\":{\n\t\t\t\"prizes\":[\n\t\t\t\t{\n\t\t\t\t\t\"prizeId\":4,\n\t\t\t\t\t\"quantity\":1\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"prizeId\":5,\n\t\t\t\t\t\"quantity\":1\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"winerIds\":[5,6]\n\t\t},\n\t\t\"award5\":{\n\t\t\t\"prizes\":[\n\t\t\t\t{\n\t\t\t\t\t\"prizeId\":5,\n\t\t\t\t\t\"quantity\":2\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"winerIds\":[7,8,9]\n\t\t}\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/lottery//updateAwardsAndWinners",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lottery",
+								"",
+								"updateAwardsAndWinners"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "用户",
+			"item": [
+				{
+					"name": "添加用户",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"王宝\",\n\t\"gender\":0,\n\t\"mobile\":\"15900003333\",\n\t\"address\":\"天津市\",\n\t\"open_id\":\"openid123456485315554565\",\n\t\"avatar\":\"icon.png\",\n\t\"nickname\":\"屌丝逆袭\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user/registerUser",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"registerUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "综合查询用户-请求方式1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"ids\":[\n\t\t1,2,3]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user/findUserList",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"findUserList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "综合查询用户-请求方式2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userCustom\":{\n\t\t\"username\":\"张\",\n\t\t\"gender\":\"0\",\n\t\t\"address\":\"广东省\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user/findUserList",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"findUserList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询符合条件的用户数量",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userCustom\":{\n\t\t\"username\":\"张\",\n\t\t\"gender\":\"0\",\n\t\t\"address\":\"广东省\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user/findUserCount",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"findUserCount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userCustom\":{\n\t\t\"username\":\"张\",\n\t\t\"gender\":\"0\",\n\t\t\"address\":\"广东省\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user/findUserList",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"findUserList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据id查询用户",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user/findUserById",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"findUserById"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据名字查询用户",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5648573e-1d84-41e6-9c55-7078148ecfbf",
+								"exec": [
+									"tests[\"response code is 200\"] = responseCode.code === 200;",
+									"tests[\"body contains authenticated\"] = responseBody.has(\"authenticated\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "postman",
+									"type": "string"
+								},
+								{
+									"key": "realm",
+									"value": "{{echo_digest_realm}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "nonce",
+									"value": "{{echo_digest_nonce}}",
+									"type": "string"
+								},
+								{
+									"key": "nonceCount",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "clientNonce",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "opaque",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "qop",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "disableRetryRequest",
+									"type": "any"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Digest username=\"postman\", realm=\"Users\", nonce=\"ni1LiL0O37PRRhofWdCLmwFsnEtH1lew\", uri=\"/digest-auth\", response=\"254679099562cf07df9b6f5d8d15db44\", opaque=\"\""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/user/findUserByName/%E5%BC%A0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"findUserByName",
+								"%E5%BC%A0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "活动参与表participant",
+			"item": [
+				{
+					"name": "参加活动",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"lottery_id\":\"1\",\n\t\"lottery_title\":\"春节抽奖\",\n\t\"user_id\":\"2\",\n\t\"username\":\"张三丰\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/participant/join",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"participant",
+								"join"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询用户参加的所有活动",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user//queryUserAndLotteryesByUserId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"",
+								"queryUserAndLotteryesByUserId"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
