@@ -154,16 +154,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <!-- mybatis-generator自动生成代码插件 -->
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <configuration>
-                    <verbose>true</verbose>
-                    <overwrite>true</overwrite>
+                    <mainClass>com.szxfd.springboot.web.SpringbootWebApplication</mainClass>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
