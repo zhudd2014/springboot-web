@@ -13,6 +13,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <name>springboot-web</name>
     <description>springboot-web</description>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -123,6 +124,14 @@
         <finalName>${project.description}-${project.version}-${env}</finalName>
         <plugins>
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.szxfd.springboot.web.SpringbootWebApplication</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptors>assembly/assembly.xml</descriptors>
@@ -139,26 +148,17 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <!--<exclude>**/*.xml</exclude>-->
-                        <!--<exclude>*.properties</exclude>-->
-                        <!--<exclude>application.yml</exclude>-->
-                    </excludes>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.szxfd.springboot.web.SpringbootWebApplication</mainClass>
-                </configuration>
-            </plugin>
-
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-jar-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<excludes>-->
+                        <!--&lt;!&ndash;<exclude>**/*.xml</exclude>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<exclude>*.properties</exclude>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<exclude>application.yml</exclude>&ndash;&gt;-->
+                    <!--</excludes>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 

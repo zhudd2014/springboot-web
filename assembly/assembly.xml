@@ -11,10 +11,17 @@
 <assembly> 
    <id>assembly</id>  
    <formats> 
-      <format>jar</format>
+      <format>zip</format>
    </formats>  
    <includeBaseDirectory>true</includeBaseDirectory>  
-   <fileSets> 
+   <fileSets>
+      <fileSet>
+         <directory>target/</directory>
+         <includes>
+            <include>*.jar</include>
+         </includes>
+         <outputDirectory>server</outputDirectory>
+      </fileSet>
       <fileSet> 
          <directory>assembly/${env}/bin</directory>  
          <outputDirectory>bin</outputDirectory>  
