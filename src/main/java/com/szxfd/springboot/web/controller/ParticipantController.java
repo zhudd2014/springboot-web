@@ -48,7 +48,7 @@ public class ParticipantController {
      * @return
      */
     @RequestMapping("/queryParticipantList")
-    public BaseResponse queryParticipantList(@RequestBody ParticipantQueryVo participantQueryVo) {
+    public BaseResponse queryParticipantList(@RequestBody(required = false) ParticipantQueryVo participantQueryVo) {
         return participantService.queryParticipantList(participantQueryVo);
     }
 
@@ -56,7 +56,7 @@ public class ParticipantController {
      * @return
      */
     @RequestMapping("/queryParticipantCount")
-    public BaseResponse queryParticipantCount(@RequestBody ParticipantQueryVo participantQueryVo) {
+    public BaseResponse queryParticipantCount(@RequestBody(required = false) ParticipantQueryVo participantQueryVo) {
         return participantService.queryParticipantCount(participantQueryVo);
     }
 }

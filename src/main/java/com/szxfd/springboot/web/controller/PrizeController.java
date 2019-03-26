@@ -69,12 +69,12 @@ public class PrizeController {
     }
 
     @RequestMapping("/queryPrizeList")
-    public BaseResponse<List<PrizeCustom>> queryPrizeList(@RequestBody PrizeQueryVo prizeQueryVo) {
+    public BaseResponse<List<PrizeCustom>> queryPrizeList(@RequestBody(required = false) PrizeQueryVo prizeQueryVo) {
         return prizeService.queryPrizeList(prizeQueryVo);
     }
 
     @RequestMapping("/queryPrizeCount")
-    public BaseResponse<Integer> queryPrizeCount(@RequestBody PrizeQueryVo prizeQueryVo) {
+    public BaseResponse<Integer> queryPrizeCount(@RequestBody(required = false) PrizeQueryVo prizeQueryVo) {
         return prizeService.queryPrizeCount(prizeQueryVo);
     }
 

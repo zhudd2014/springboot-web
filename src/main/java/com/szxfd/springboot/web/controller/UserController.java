@@ -75,7 +75,7 @@ public class UserController {
 //    }
 
     @RequestMapping(value = "/findUserList", method = RequestMethod.POST)
-    public BaseResponse<List<User>> findUserList(@RequestBody UserQueryVo userQueryVo) {
+    public BaseResponse<List<User>> findUserList(@RequestBody(required = false) UserQueryVo userQueryVo) {
         System.out.println("findUser....");
         BaseResponse response = new BaseResponse();
         try {
@@ -91,7 +91,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/findUserCount", method = RequestMethod.POST)
-    public BaseResponse<Integer> findUserCount(@RequestBody UserQueryVo userQueryVo) {
+    public BaseResponse<Integer> findUserCount(@RequestBody(required = false) UserQueryVo userQueryVo) {
         System.out.println("findUserCount....");
         BaseResponse response = new BaseResponse();
         try {
