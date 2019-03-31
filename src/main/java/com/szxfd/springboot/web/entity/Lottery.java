@@ -1,22 +1,61 @@
 package com.szxfd.springboot.web.entity;
 
+import java.sql.Timestamp;
+
 /**
  * 抽奖活动
  */
 public class Lottery {
 
     private int id;
+    /**
+     * 活动能够标题
+     */
     private String title;
+    /**
+     * 活动图片
+     */
     private String banner;
+    /**
+     * 活动图片
+     */
     private String desc;
+    /**
+     * 开奖方式：0-手动开奖，1-按时间开奖，2-按人数开奖
+     */
     private int open_type;
+    /**
+     * 按时间开奖时，开奖日期时间
+     */
     private String open_date;
+    private Timestamp open_date_timestamp;
+    /**
+     * 按人数开奖时，开奖人数
+     */
     private int open_participator_num;
+    /**
+     * 赞助者
+     */
     private String sponsor;
+    /**
+     * 开奖状态：0-未开始，1-待开奖，已开奖
+     */
     private int status;
-    private String award;//奖项
+    /**
+     * 奖项
+     */
+    private String award;
+    /**
+     * 创建时间
+     */
     private String create_time;
+    /**
+     * 更新时间
+     */
     private String update_time;
+    /**
+     * 是否逻辑删除
+     */
     private boolean is_delete;
 
     public int getId() {
@@ -65,6 +104,14 @@ public class Lottery {
 
     public void setOpen_date(String open_date) {
         this.open_date = open_date;
+    }
+
+    public Timestamp getOpen_date_timestamp() {
+        return open_date_timestamp;
+    }
+
+    public void setOpen_date_timestamp(Timestamp open_date_timestamp) {
+        this.open_date_timestamp = open_date_timestamp;
     }
 
     public int getOpen_participator_num() {

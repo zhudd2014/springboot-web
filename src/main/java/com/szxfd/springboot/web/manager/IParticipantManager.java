@@ -1,14 +1,14 @@
 /**
  * Copyright (C), 2015-2019, XXX有限公司
- * FileName: IParticipantService
+ * FileName: IParticipantManager
  * Author:   admin
- * Date:     2019/3/24 16:18
+ * Date:     2019/3/31 18:41
  * Description:
  * History:
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package com.szxfd.springboot.web.service;
+package com.szxfd.springboot.web.manager;
 
 import com.szxfd.springboot.web.entity.BaseResponse;
 import com.szxfd.springboot.web.entity.ParticipantCustom;
@@ -21,10 +21,10 @@ import java.util.List;
  * 〈〉
  *
  * @author admin
- * @create 2019/3/24
+ * @create 2019/3/31
  * @since 1.0.0
  */
-public interface IParticipantService {
+public interface IParticipantManager {
 
     /**
      * 参与活动
@@ -32,7 +32,7 @@ public interface IParticipantService {
      * @param participantCustom
      * @return
      */
-    BaseResponse<Boolean> join(ParticipantCustom participantCustom);
+    BaseResponse<Integer> insert(ParticipantCustom participantCustom);
 
     /**
      * 退出活动
@@ -40,7 +40,7 @@ public interface IParticipantService {
      * @param participantCustom
      * @return
      */
-    BaseResponse<Boolean> exit(ParticipantCustom participantCustom);
+    BaseResponse<Boolean> deleteById(ParticipantCustom participantCustom);
 
     /**
      * 综合查询
@@ -58,4 +58,11 @@ public interface IParticipantService {
      */
     BaseResponse<Integer> queryParticipantCount(ParticipantQueryVo participantQueryVo);
 
+    /**
+     * 查询参与指定活动的总人数
+     *
+     * @param lotteryId
+     * @return
+     */
+    int queryParticipantCount(int lotteryId);
 }

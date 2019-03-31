@@ -98,10 +98,15 @@
     </update>
 
     <!--设置开奖方式-->
-    <update id="updateLotteryWay" parameterType="lotteryCustom">
+    <update id="setOpenType" parameterType="lotteryCustom">
         update `lottery`
-        set `open_type`=#{open_type},`open_date`=#{open_date},`open_participator_num`=#{open_participator_num},`status`=#{status}
+        set `open_type`=#{open_type},`open_date`=#{open_date_timestamp},`open_participator_num`=#{open_participator_num},`status`=#{status}
         where `id`=#{id}
+    </update>
+
+    <update id="setStatus" parameterType="int">
+        update `lottery`
+        set `status`=#{value}
     </update>
 
     <!--设置奖项及中奖人-->

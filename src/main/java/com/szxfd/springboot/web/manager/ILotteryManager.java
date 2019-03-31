@@ -8,7 +8,7 @@
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package com.szxfd.springboot.web.service;
+package com.szxfd.springboot.web.manager;
 
 import com.szxfd.springboot.web.entity.BaseResponse;
 import com.szxfd.springboot.web.entity.LotteryCustom;
@@ -24,7 +24,7 @@ import java.util.List;
  * @create 2019/3/21
  * @since 1.0.0
  */
-public interface ILotteryService {
+public interface ILotteryManager {
 
     /**
      * 创建
@@ -45,18 +45,18 @@ public interface ILotteryService {
     /**
      * 删除
      *
-     * @param lotteryCustom
+     * @param id
      * @return
      */
-    BaseResponse<Boolean> deleteById(LotteryCustom lotteryCustom);
+    BaseResponse<Boolean> deleteById(int id);
 
     /**
      * 通过id查询
      *
-     * @param lotteryCustom
+     * @param id
      * @return
      */
-    BaseResponse<LotteryCustom> queryById(LotteryCustom lotteryCustom);
+    BaseResponse<LotteryCustom> queryById(int id);
 
     /**
      * 综合查询
@@ -105,4 +105,11 @@ public interface ILotteryService {
      * @return
      */
     BaseResponse<Boolean> updateAwardsAndWinners(LotteryCustom lotteryCustom);
+
+    /**
+     * 开奖状态
+     *
+     * @return
+     */
+    boolean setStatus(int status);
 }

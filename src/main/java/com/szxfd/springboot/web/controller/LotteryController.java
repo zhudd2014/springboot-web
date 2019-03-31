@@ -42,7 +42,7 @@ public class LotteryController {
      * @return
      */
     @RequestMapping("/createLottery")
-    public BaseResponse<Integer> createLottery(@RequestBody LotteryCustom lotteryCustom) {
+    public BaseResponse<Integer> createLottery(@RequestBody(required = false) LotteryCustom lotteryCustom) {
         return lotteryService.create(lotteryCustom);
     }
 
@@ -52,7 +52,7 @@ public class LotteryController {
      * @return
      */
     @RequestMapping("/updateLottery")
-    public BaseResponse<Boolean> updateLottery(@RequestBody LotteryCustom lotteryCustom) {
+    public BaseResponse<Boolean> updateLottery(@RequestBody(required = false) LotteryCustom lotteryCustom) {
         return lotteryService.updateById(lotteryCustom);
     }
 
@@ -62,7 +62,7 @@ public class LotteryController {
      * @return
      */
     @RequestMapping("/deleteLottery")
-    public BaseResponse<Boolean> deleteLottery(@RequestBody LotteryCustom lotteryCustom) {
+    public BaseResponse<Boolean> deleteLottery(@RequestBody(required = false) LotteryCustom lotteryCustom) {
         return lotteryService.deleteById(lotteryCustom);
     }
 
@@ -73,24 +73,21 @@ public class LotteryController {
      * @return
      */
     @RequestMapping("/queryLotteryById")
-    public BaseResponse<LotteryCustom> queryLotteryById(@RequestBody LotteryCustom lotteryCustom) {
+    public BaseResponse<LotteryCustom> queryLotteryById(@RequestBody(required = false) LotteryCustom lotteryCustom) {
         return lotteryService.queryById(lotteryCustom);
     }
-
-//    /**
-//     * 查询指定user参与的活动
-//     */
-//    @RequestMapping("/queryLotteryByUserId")
-//    public BaseResponse<LotteryCustom> queryLotteryByUserId(@RequestBody LotteryCustom lotteryCustom) {
-//        return lotteryService.queryLotteryAndUsersByLotteryId(lotteryCustom);
-//    }
 
     /**
      * 查询参与指定活动的所有人
      */
     @RequestMapping("/queryLotteryAndUsersByLotteryId")
-    public BaseResponse<LotteryCustom> queryLotteryAndUsersByLotteryId(@RequestBody LotteryCustom lotteryCustom) {
+    public BaseResponse<LotteryCustom> queryLotteryAndUsersByLotteryId(@RequestBody(required = false) LotteryCustom lotteryCustom) {
         return lotteryService.queryLotteryAndUsersByLotteryId(lotteryCustom);
+    }
+
+    @RequestMapping("/setOpenType")
+    public BaseResponse<Boolean> setOpenType(@RequestBody(required = false) LotteryCustom lotteryCustom) {
+        return lotteryService.setOpenType(lotteryCustom);
     }
 
     /**
@@ -99,7 +96,7 @@ public class LotteryController {
      * @return
      */
     @RequestMapping("/updateAwardsAndWinners")
-    public BaseResponse updateAwardsAndWinners(@RequestBody LotteryCustom lotteryCustom) {
+    public BaseResponse updateAwardsAndWinners(@RequestBody(required = false) LotteryCustom lotteryCustom) {
         return lotteryService.updateAwardsAndWinners(lotteryCustom);
     }
 

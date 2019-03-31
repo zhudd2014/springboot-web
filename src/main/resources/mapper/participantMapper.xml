@@ -17,6 +17,9 @@
             <if test="participantCustom.username!=null and participantCustom.username!=''">
                 and `participant`.`username` = #{participantCustom.username}
             </if>
+            <if test="participantCustom.is_delete!=null and participantCustom.is_delete!=''">
+                and `participant`.`is_delete` = #{participantCustom.is_delete}
+            </if>
         </if>
         <if test="ids!=null">
             <foreach collection="ids" item="participant_id" open="and (" close=")" separator="or">
@@ -55,7 +58,7 @@
     </select>
 
     <select id="queryParticipantById" parameterType="int" resultType="participantCustom">
-        SELECT * FROM `participant` WHERE id = #{id}
+        SELECT * FROM `participant` WHERE id = #{id} and is_delete = 0
     </select>
 
     <!--<select id="queryparticipantByTitle" parameterType="string" resultType="participantCustom">-->

@@ -57,12 +57,20 @@ public interface LotteryMapper {
     int queryLotteryCount(LotteryQueryVo lotteryQueryVo);
 
     /**
-     * 设置中奖方式
+     * 设置开奖方式
      *
      * @param lotteryCustom
      * @return
      */
-    int updateLotteryWay(LotteryCustom lotteryCustom);
+    int setOpenType(LotteryCustom lotteryCustom);
+
+    /**
+     * 设置活动状态
+     *
+     * @param status
+     * @return
+     */
+    int setStatus(int status);
 
     /**
      * 设置奖项及中奖人

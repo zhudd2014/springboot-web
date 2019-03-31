@@ -41,7 +41,7 @@ public class ParticipantController {
      */
     @RequestMapping("/join")
     public BaseResponse join(@RequestBody ParticipantCustom participantCustom) {
-        return participantService.insert(participantCustom);
+        return participantService.join(participantCustom);
     }
 
     /**
