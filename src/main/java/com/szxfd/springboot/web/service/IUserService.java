@@ -28,6 +28,29 @@ import java.util.List;
 public interface IUserService {
 
     /**
+     * 获取公钥
+     *
+     * @return
+     */
+    BaseResponse<String> getPublicKey();
+
+    /**
+     * 注册
+     *
+     * @param userInfo
+     * @return
+     */
+    BaseResponse<UserCustom> register(String userInfo);
+
+    /**
+     * 登录
+     *
+     * @param userInfo
+     * @return
+     */
+    BaseResponse<Boolean> login(byte[] userInfo);
+
+    /**
      * 综合条件查询用户列表
      *
      * @param userQueryVo
@@ -52,4 +75,5 @@ public interface IUserService {
     BaseResponse<UserCustom> queryUserAndLotteryes(UserCustom userCustom);
 
     BaseResponse<Integer> registerUser(UserCustom userCustom);
+
 }

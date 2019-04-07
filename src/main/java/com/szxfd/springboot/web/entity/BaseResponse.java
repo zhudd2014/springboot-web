@@ -25,6 +25,20 @@ public class BaseResponse<T> {
     private String errorMsg;
     private T obj;
 
+    public BaseResponse() {
+    }
+
+    public BaseResponse(boolean success, T obj) {
+        this.success = success;
+        this.obj = obj;
+    }
+
+    public BaseResponse(String errorCode, String errorMsg) {
+        this.success = false;
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
+    }
+
     public boolean isSuccess() {
         return success;
     }

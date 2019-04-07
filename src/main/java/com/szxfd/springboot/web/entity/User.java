@@ -19,6 +19,7 @@ public class User implements Serializable {
 
     private int id;
     private String username;
+    private String password;
     private int gender;
     private String mobile;
     private String address;
@@ -43,6 +44,14 @@ public class User implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getGender() {
@@ -109,7 +118,7 @@ public class User implements Serializable {
         this.update_time = update_time;
     }
 
-    public boolean getIs_delete() {
+    public boolean isIs_delete() {
         return is_delete;
     }
 
@@ -122,6 +131,7 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", gender=" + gender +
                 ", mobile='" + mobile + '\'' +
                 ", address='" + address + '\'' +

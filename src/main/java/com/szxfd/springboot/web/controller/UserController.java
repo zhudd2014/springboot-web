@@ -170,9 +170,19 @@ public class UserController {
 //        return response;
 //    }
 
-    @RequestMapping("/registerUser")
-    public BaseResponse<Integer> registerUser(@RequestBody UserCustom userCustom) {
+    @RequestMapping("/getPublicKey")
+    public BaseResponse<String> getPublicKey() {
+        return userService.getPublicKey();
+    }
+
+    @RequestMapping("/register")
+    public BaseResponse<Integer> register(@RequestBody UserCustom userCustom) {
         return userService.registerUser(userCustom);
+    }
+
+    @RequestMapping(value = "/login")
+    public BaseResponse<Boolean> login(@RequestBody byte[] userInfo) {
+        return userService.login(userInfo);
     }
 
     @RequestMapping("/queryUserAndLotteryesByUserId")

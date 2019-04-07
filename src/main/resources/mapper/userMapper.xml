@@ -6,6 +6,7 @@
     <resultMap id="userAndLotterys" type="com.szxfd.springboot.web.entity.UserCustom">
         <id column="id" property="id"/>
         <result column="username" property="username"/>
+        <result column="password" property="passwrod"/>
         <result column="gender" property="gender"/>
         <result column="mobile" property="mobile"/>
         <result column="address" property="address"/>
@@ -95,9 +96,22 @@
         SELECT * FROM `user` WHERE username LIKE '%${value}%'
     </select>
 
+    <!--登录使用-->
+    <select id="queryUserByUsernameAndPassword" parameterType="userCustom" resultType="int">
+        SELECT count(*) FROM `user`
+        <where>
+            <if test="username!=null and username!=''">
+                and `user`.`username` = '${username}'
+            </if>
+            <if test="password!=null and password!=''">
+                and `user`.`password` = '${password}'
+            </if>
+        </where>
+    </select>
+
     <!--根据id更新用户-->
     <update id="updateUser" parameterType="user">
-        UPDATE `user` SET username=#{username},gender=#{gender},mobile=#{mobile},address=#{address},open_id=#{open_id},
+        UPDATE `user` SET username=#{username},password=#{password},gender=#{gender},mobile=#{mobile},address=#{address},open_id=#{open_id},
         avatar=#{avatar},nickname=#{nickname},create_time=#{create_time},update_time=#{update_time},is_delete=#{is_delete}
         WHERE id=#{id}
     </update>
@@ -118,14 +132,14 @@
     </select>
 
     <sql id="insert_all_keys">
-        `username`,`gender`,`mobile`,`address`,`open_id`,`avatar`,`nickname`,`create_time`
+        `username`,`password`,`gender`,`mobile`,`address`,`open_id`,`avatar`,`nickname`,`create_time`
     </sql>
 
     <insert id="insertUser" keyProperty="id" useGeneratedKeys="true" parameterType="userCustom">
         insert into `user`(
         <include refid="insert_all_keys"></include>
         )
-        values(#{username},#{gender},#{mobile},#{address},#{open_id},#{avatar},#{nickname},sysdate())
+        values(#{username},{#{password},#{gender},#{mobile},#{address},#{open_id},#{avatar},#{nickname},sysdate())
     </insert>
 
 </mapper>

@@ -82,4 +82,11 @@ public interface UserMapper {
      * @return
      */
     int insertUser(UserCustom userCustom);
+
+    /**
+     * 查询用户，全匹配查询，用于登录
+     *
+     * @param userCustom
+     */
+    int queryUserByUsernameAndPassword(UserCustom userCustom);
 }

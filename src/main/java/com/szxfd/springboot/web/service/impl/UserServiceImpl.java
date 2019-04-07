@@ -15,11 +15,14 @@ import com.szxfd.springboot.web.entity.BaseResponse;
 import com.szxfd.springboot.web.entity.User;
 import com.szxfd.springboot.web.entity.UserCustom;
 import com.szxfd.springboot.web.entity.UserQueryVo;
+import com.szxfd.springboot.web.rsa.RSAUtils;
 import com.szxfd.springboot.web.service.IUserService;
+import com.szxfd.springboot.web.utils.FastJsonUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -34,6 +37,67 @@ public class UserServiceImpl implements IUserService {
 
     @Resource
     private UserMapper userMapper;
+
+    static String publicKey;
+    static String privateKey;
+
+    static {
+        try {
+            Map<String, Object> keyMap = RSAUtils.genKeyPair();
+            publicKey = RSAUtils.getPublicKey(keyMap);
+            privateKey = RSAUtils.getPrivateKey(keyMap);
+            System.err.println("公钥: \n\r" + publicKey);
+            System.err.println("私钥： \n\r" + privateKey);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public BaseResponse<String> getPublicKey() {
+        return new BaseResponse<>(true, publicKey);
+    }
+
+    @Override
+    public BaseResponse<UserCustom> register(String userInfo) {
+        return null;
+    }
+
+    @Override
+    public BaseResponse<Boolean> login(byte[] userInfo) {
+        if (null == userInfo || "".equals(userInfo)) {
+            return new BaseResponse<>("", "userInfo is null");
+        }
+        byte[] decodedData;
+        try {
+            decodedData = RSAUtils.decryptByPrivateKey(userInfo, privateKey);
+            String target = new String(decodedData);
+            UserCustom userCustom = FastJsonUtils.getJsonToBean(target, UserCustom.class);
+            if (null == userCustom) {
+                return new BaseResponse<>("", "userCusom is null");
+            }
+            String username = userCustom.getUsername();
+            String password = userCustom.getPassword();
+            if (null == username || "".equals(username)) {
+                return new BaseResponse<>("", "username is empty");
+            }
+            if (null == password || "".equals(password)) {
+                return new BaseResponse<>("", "password is empty");
+            }
+            int count = userMapper.queryUserByUsernameAndPassword(userCustom);
+            if (count == 0) {
+                return new BaseResponse<>("", "username or password is wrong");
+            }
+            if (count > 1) {
+                return new BaseResponse<>("", "exist more than one account");
+            }
+            //登录成功
+            return new BaseResponse<>(true, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new BaseResponse<>("", e.getMessage());
+        }
+    }
 
     @Override
     public List<UserCustom> queryUserList(UserQueryVo userQueryVo) {
@@ -89,6 +153,14 @@ public class UserServiceImpl implements IUserService {
             response.setErrorMsg("data note found in database");
             return response;
         }
+        String username = userCustom.getUsername();
+        String password = userCustom.getPassword();
+        if (null == username || "".equals(username)) {
+            return new BaseResponse<>("", "username is empty");
+        }
+        if (null == password || "".equals(password)) {
+            return new BaseResponse<>("", "password is empty");
+        }
         int result = userMapper.insertUser(userCustom);
         if (result > 0) {
             response.setSuccess(true);
@@ -99,4 +171,5 @@ public class UserServiceImpl implements IUserService {
         }
         return response;
     }
+
 }
