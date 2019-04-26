@@ -10,9 +10,7 @@
  */
 package com.szxfd.springboot.web.service;
 
-import com.szxfd.springboot.web.entity.BaseResponse;
-import com.szxfd.springboot.web.entity.ParticipantCustom;
-import com.szxfd.springboot.web.entity.ParticipantQueryVo;
+import com.szxfd.springboot.web.entity.*;
 
 import java.util.List;
 
@@ -58,4 +56,8 @@ public interface IParticipantService {
      */
     BaseResponse<Integer> queryParticipantCount(ParticipantQueryVo participantQueryVo);
 
+
+    List<Participant> queryParticipants(int id);
+
+    List<Participant> setParticipants(List<Integer> ids);
 }

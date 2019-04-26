@@ -10,14 +10,13 @@
  */
 package com.szxfd.springboot.web.controller;
 
-import com.szxfd.springboot.web.entity.BaseResponse;
-import com.szxfd.springboot.web.entity.ParticipantCustom;
-import com.szxfd.springboot.web.entity.ParticipantQueryVo;
+import com.szxfd.springboot.web.entity.*;
 import com.szxfd.springboot.web.service.IParticipantService;
+import com.szxfd.springboot.web.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -58,5 +57,16 @@ public class ParticipantController {
     @RequestMapping("/queryParticipantCount")
     public BaseResponse queryParticipantCount(@RequestBody(required = false) ParticipantQueryVo participantQueryVo) {
         return participantService.queryParticipantCount(participantQueryVo);
+    }
+
+    @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
+    public Result queryParticipants(@PathVariable int id) {
+        return ResultUtil.success(participantService.queryParticipants(id));
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public Result setParticipants(@RequestBody List<Integer> ids) {
+        List<Participant> participantList = participantService.setParticipants(ids);
+        return ResultUtil.success(participantList);
     }
 }

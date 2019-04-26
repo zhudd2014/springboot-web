@@ -10,16 +10,12 @@
  */
 package com.szxfd.springboot.web.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.szxfd.springboot.web.entity.*;
+import com.szxfd.springboot.web.entity.Lottery;
+import com.szxfd.springboot.web.entity.Result;
 import com.szxfd.springboot.web.service.ILotteryService;
+import com.szxfd.springboot.web.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -29,6 +25,7 @@ import java.util.List;
  * @create 2019/3/21
  * @since 1.0.0
  */
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/lottery")
 public class LotteryController {
@@ -36,128 +33,27 @@ public class LotteryController {
     @Autowired
     private ILotteryService lotteryService;
 
-    /**
-     * 创建活动
-     *
-     * @return
-     */
-    @RequestMapping("/createLottery")
-    public BaseResponse<Integer> createLottery(@RequestBody(required = false) LotteryCustom lotteryCustom) {
-        return lotteryService.create(lotteryCustom);
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public Result queryLotteryList() {
+        return ResultUtil.success(lotteryService.queryLotteryList());
     }
 
-    /**
-     * 修改活动
-     *
-     * @return
-     */
-    @RequestMapping("/updateLottery")
-    public BaseResponse<Boolean> updateLottery(@RequestBody(required = false) LotteryCustom lotteryCustom) {
-        return lotteryService.updateById(lotteryCustom);
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public Result createLottery(@RequestBody Lottery lottery) {
+        int index = lotteryService.insertLottery(lottery);
+        return ResultUtil.success(lottery);
     }
 
-    /**
-     * 删除活动
-     *
-     * @return
-     */
-    @RequestMapping("/deleteLottery")
-    public BaseResponse<Boolean> deleteLottery(@RequestBody(required = false) LotteryCustom lotteryCustom) {
-        return lotteryService.deleteById(lotteryCustom);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public Result update(@PathVariable String id, @RequestBody Lottery lottery) {
+        int index = lotteryService.updateLottery(lottery);
+        return ResultUtil.success(lottery);
     }
 
-    /**
-     * 查询活动
-     *
-     * @param lotteryCustom
-     * @return
-     */
-    @RequestMapping("/queryLotteryById")
-    public BaseResponse<LotteryCustom> queryLotteryById(@RequestBody(required = false) LotteryCustom lotteryCustom) {
-        return lotteryService.queryById(lotteryCustom);
-    }
-
-    /**
-     * 查询参与指定活动的所有人
-     */
-    @RequestMapping("/queryLotteryAndUsersByLotteryId")
-    public BaseResponse<LotteryCustom> queryLotteryAndUsersByLotteryId(@RequestBody(required = false) LotteryCustom lotteryCustom) {
-        return lotteryService.queryLotteryAndUsersByLotteryId(lotteryCustom);
-    }
-
-    @RequestMapping("/setOpenType")
-    public BaseResponse<Boolean> setOpenType(@RequestBody(required = false) LotteryCustom lotteryCustom) {
-        return lotteryService.setOpenType(lotteryCustom);
-    }
-
-    /**
-     * 设置奖项及中奖者
-     *
-     * @return
-     */
-    @RequestMapping("/updateAwardsAndWinners")
-    public BaseResponse updateAwardsAndWinners(@RequestBody(required = false) LotteryCustom lotteryCustom) {
-        return lotteryService.updateAwardsAndWinners(lotteryCustom);
-    }
-
-    public String generateAward() {
-        //一等奖
-        AwardItem awardItem1 = new AwardItem();
-        awardItem1.setPrizes(generatePrizes1());
-        awardItem1.setWinerIds(generateWiners1());
-        //二等奖
-        AwardItem awardItem2 = new AwardItem();
-        awardItem2.setPrizes(generatePrizes2());
-        awardItem2.setWinerIds(generateWiners2());
-        Award award = new Award();
-        award.setAward1(awardItem1);
-        award.setAward2(awardItem2);
-        String awardStr = JSON.toJSONString(award);
-        System.out.println("awardStr:" + awardStr);
-        return awardStr;
-    }
-
-    private List<Integer> generateWiners1() {
-        List<Integer> winers = new ArrayList<>();
-        winers.add(1);
-        return winers;
-    }
-
-    private List<AwardPrize> generatePrizes1() {
-        AwardPrize awardPrize0 = new AwardPrize();
-        awardPrize0.setPrizeId(1);
-        awardPrize0.setQuantity(1);
-        AwardPrize awardPrize1 = new AwardPrize();
-        awardPrize1.setPrizeId(2);
-        awardPrize1.setQuantity(2);
-        List<AwardPrize> awardPrizes = new ArrayList<>();
-        awardPrizes.add(awardPrize0);
-        awardPrizes.add(awardPrize1);
-        return awardPrizes;
-    }
-
-    private List<Integer> generateWiners2() {
-        List<Integer> winers = new ArrayList<>();
-        winers.add(2);
-        winers.add(3);
-        return winers;
-    }
-
-    private List<AwardPrize> generatePrizes2() {
-        AwardPrize awardPrize0 = new AwardPrize();
-        awardPrize0.setPrizeId(3);
-        awardPrize0.setQuantity(1);
-        AwardPrize awardPrize1 = new AwardPrize();
-        awardPrize1.setPrizeId(4);
-        awardPrize1.setQuantity(3);
-        AwardPrize awardPrize2 = new AwardPrize();
-        awardPrize2.setPrizeId(5);
-        awardPrize2.setQuantity(10);
-        List<AwardPrize> awardPrizes = new ArrayList<>();
-        awardPrizes.add(awardPrize0);
-        awardPrizes.add(awardPrize1);
-        awardPrizes.add(awardPrize2);
-        return awardPrizes;
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public Result delete(@PathVariable int id) {
+        int index = lotteryService.deleteLottery(id);
+        return ResultUtil.success();
     }
 
 }

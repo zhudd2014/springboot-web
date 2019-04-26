@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szxfd.springboot.web.dao.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.szxfd.springboot.web.entity.SysUser">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, username, avatar, nickname, status
+    </sql>
+
+    <insert id="insert" parameterType="com.szxfd.springboot.web.entity.SysUser">
+    insert into sys_user (id, username, password, 
+      avatar, nickname, create_time, 
+      update_time, status)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{avatar,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=BIT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.szxfd.springboot.web.entity.SysUser">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="avatar != null">
+                avatar,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null">
+                #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="findUser" parameterType="com.szxfd.springboot.web.entity.SysUser" resultType="com.szxfd.springboot.web.entity.SysUser">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_user WHERE username = #{username} and password = #{password}
+    </select>
+
+</mapper>

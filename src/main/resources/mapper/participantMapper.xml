@@ -81,4 +81,10 @@
     <!--`title` = #{title} and `desc` = #{desc} and `price` = #{price} and `quantity` = #{quantity} and `update_time` = sysdate()-->
     <!--</update>-->
 
+    <select id="queryParticipants" parameterType="int" resultType="com.szxfd.springboot.web.entity.Participant">
+        SELECT * FROM `participant` WHERE lottery_id = #{id}
+    </select>
+
+
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.szxfd.springboot.web.dao;
 
+import com.szxfd.springboot.web.entity.Participant;
 import com.szxfd.springboot.web.entity.ParticipantCustom;
 import com.szxfd.springboot.web.entity.ParticipantQueryVo;
 
@@ -16,5 +17,9 @@ public interface ParticipantMapper {
     List<ParticipantCustom> queryParticipantList(ParticipantQueryVo participantQueryVo);
 
     int queryParticipantCount(ParticipantQueryVo participantQueryVo);
+
+    List<Participant> queryParticipants(int id);
+
+    List<Participant> setParticipants(List<Integer> ids);
 
 }

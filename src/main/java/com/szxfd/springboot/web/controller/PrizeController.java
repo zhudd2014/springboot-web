@@ -10,16 +10,12 @@
  */
 package com.szxfd.springboot.web.controller;
 
-import com.szxfd.springboot.web.entity.BaseResponse;
-import com.szxfd.springboot.web.entity.PrizeCustom;
-import com.szxfd.springboot.web.entity.PrizeQueryVo;
+import com.szxfd.springboot.web.entity.Prize;
+import com.szxfd.springboot.web.entity.Result;
 import com.szxfd.springboot.web.service.IPrizeService;
+import com.szxfd.springboot.web.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -29,6 +25,7 @@ import java.util.List;
  * @create 2019/3/19
  * @since 1.0.0
  */
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/prize")
 public class PrizeController {
@@ -36,46 +33,27 @@ public class PrizeController {
     @Autowired
     private IPrizeService prizeService;
 
-    /**
-     * 添加奖品
-     *
-     * @param prizeCustom
-     * @return
-     */
-    @RequestMapping("/add")
-    public BaseResponse<Integer> add(@RequestBody PrizeCustom prizeCustom) {
-        return prizeService.insert(prizeCustom);
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public Result queryPrizeList() {
+        return ResultUtil.success(prizeService.queryPrizes());
     }
 
-    @RequestMapping("/queryById")
-    public BaseResponse<PrizeCustom> queryById(@RequestBody PrizeCustom prizeCustom) {
-        return prizeService.queryPrizeById(prizeCustom);
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public Result createPrize(@RequestBody Prize prize) {
+        int index = prizeService.insert(prize);
+        return ResultUtil.success(prize);
     }
 
-    /**
-     * 通过title匹配奖品
-     *
-     * @param prizeCustom
-     * @return
-     */
-    @RequestMapping("/queryByTitle")
-    public BaseResponse<List<PrizeCustom>> queryByTitle(@RequestBody PrizeCustom prizeCustom) {
-        return prizeService.queryPrizeByTitle(prizeCustom.getTitle());
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public Result update(@PathVariable String id, @RequestBody Prize prize) {
+        int index = prizeService.update(prize);
+        return ResultUtil.success(prize);
     }
 
-    @RequestMapping("/updatePrize")
-    public BaseResponse<Boolean> updatePrize(@RequestBody PrizeCustom prizeCustom) {
-        return prizeService.update(prizeCustom);
-    }
-
-    @RequestMapping("/queryPrizeList")
-    public BaseResponse<List<PrizeCustom>> queryPrizeList(@RequestBody(required = false) PrizeQueryVo prizeQueryVo) {
-        return prizeService.queryPrizeList(prizeQueryVo);
-    }
-
-    @RequestMapping("/queryPrizeCount")
-    public BaseResponse<Integer> queryPrizeCount(@RequestBody(required = false) PrizeQueryVo prizeQueryVo) {
-        return prizeService.queryPrizeCount(prizeQueryVo);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public Result delete(@PathVariable int id) {
+        int index = prizeService.deletePrize(id);
+        return ResultUtil.success();
     }
 
 }

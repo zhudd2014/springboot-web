@@ -1,24 +1,21 @@
 package com.szxfd.springboot.web.service;
 
-import com.szxfd.springboot.web.entity.BaseResponse;
-import com.szxfd.springboot.web.entity.PrizeCustom;
-import com.szxfd.springboot.web.entity.PrizeQueryVo;
+import com.szxfd.springboot.web.entity.Prize;
 
 import java.util.List;
 
 public interface IPrizeService {
 
-    BaseResponse<Integer> insert(PrizeCustom prizeCustom);
+    /**
+     * 查询奖品列表
+     *
+     * @return
+     */
+    List<Prize> queryPrizes();
 
-    BaseResponse<Boolean> removeInLogical(PrizeCustom prizeCustom);
+    int insert(Prize prize);
 
-    BaseResponse<Boolean> update(PrizeCustom prizeCustom);
+    int update(Prize prize);
 
-    BaseResponse<PrizeCustom> queryPrizeById(PrizeCustom prizeCustom);
-
-    BaseResponse<List<PrizeCustom>> queryPrizeByTitle(String title);
-
-    BaseResponse<List<PrizeCustom>> queryPrizeList(PrizeQueryVo prizeQueryVo);
-
-    BaseResponse<Integer> queryPrizeCount(PrizeQueryVo prizeQueryVo);
+    int deletePrize(int id);
 }

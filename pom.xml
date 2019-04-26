@@ -148,17 +148,25 @@
                 </executions>
             </plugin>
 
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-jar-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<excludes>-->
-                        <!--&lt;!&ndash;<exclude>**/*.xml</exclude>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<exclude>*.properties</exclude>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<exclude>application.yml</exclude>&ndash;&gt;-->
-                    <!--</excludes>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
+            <!-- mybatis generator 自动生成代码插件 -->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.7</version>
+                <configuration>
+                    <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
+                    <overwrite>true</overwrite>
+                    <verbose>true</verbose>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>Generate MyBatis Artifacts</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

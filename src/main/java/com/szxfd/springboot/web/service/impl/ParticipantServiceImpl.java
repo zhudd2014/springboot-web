@@ -10,6 +10,7 @@
  */
 package com.szxfd.springboot.web.service.impl;
 
+import com.szxfd.springboot.web.dao.ParticipantMapper;
 import com.szxfd.springboot.web.entity.*;
 import com.szxfd.springboot.web.manager.ILotteryManager;
 import com.szxfd.springboot.web.manager.IParticipantManager;
@@ -17,6 +18,7 @@ import com.szxfd.springboot.web.service.IParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -34,6 +36,9 @@ public class ParticipantServiceImpl implements IParticipantService {
     private IParticipantManager participantManager;
     @Autowired
     private ILotteryManager lotteryManager;
+
+    @Resource
+    private ParticipantMapper participantMapper;
 
     @Override
     public BaseResponse<Boolean> join(ParticipantCustom participantCustom) {
@@ -100,5 +105,15 @@ public class ParticipantServiceImpl implements IParticipantService {
     @Override
     public BaseResponse<Integer> queryParticipantCount(ParticipantQueryVo participantQueryVo) {
         return null;
+    }
+
+    @Override
+    public List<Participant> queryParticipants(int id) {
+        return participantMapper.queryParticipants(id);
+    }
+
+    @Override
+    public List<Participant> setParticipants(List<Integer> ids) {
+        return participantMapper.setParticipants(ids);
     }
 }

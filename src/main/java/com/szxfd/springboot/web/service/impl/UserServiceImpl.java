@@ -46,8 +46,8 @@ public class UserServiceImpl implements IUserService {
             Map<String, Object> keyMap = RSAUtils.genKeyPair();
             publicKey = RSAUtils.getPublicKey(keyMap);
             privateKey = RSAUtils.getPrivateKey(keyMap);
-            System.err.println("公钥: \n\r" + publicKey);
-            System.err.println("私钥： \n\r" + privateKey);
+//            System.err.println("公钥: \n\r" + publicKey);
+//            System.err.println("私钥： \n\r" + privateKey);
         } catch (Exception e) {
             e.printStackTrace();
         }

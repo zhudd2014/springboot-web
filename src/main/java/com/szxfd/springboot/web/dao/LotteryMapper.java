@@ -1,5 +1,6 @@
 package com.szxfd.springboot.web.dao;
 
+import com.szxfd.springboot.web.entity.Lottery;
 import com.szxfd.springboot.web.entity.LotteryCustom;
 import com.szxfd.springboot.web.entity.LotteryQueryVo;
 
@@ -87,5 +88,14 @@ public interface LotteryMapper {
      * @return
      */
     LotteryCustom queryLotteryAndUsers(int lotteryId);
+
+
+    List<Lottery> getLotteryList();
+
+    int insertLottery(Lottery lottery);
+
+    int updateLottery(Lottery lottery);
+
+    int deleteLottery(int id);
 
 }

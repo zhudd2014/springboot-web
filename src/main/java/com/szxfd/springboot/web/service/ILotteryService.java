@@ -11,6 +11,7 @@
 package com.szxfd.springboot.web.service;
 
 import com.szxfd.springboot.web.entity.BaseResponse;
+import com.szxfd.springboot.web.entity.Lottery;
 import com.szxfd.springboot.web.entity.LotteryCustom;
 import com.szxfd.springboot.web.entity.LotteryQueryVo;
 
@@ -105,4 +106,12 @@ public interface ILotteryService {
      * @return
      */
     BaseResponse<Boolean> updateAwardsAndWinners(LotteryCustom lotteryCustom);
+
+    List<Lottery> queryLotteryList();
+
+    int insertLottery(Lottery lottery);
+
+    int updateLottery(Lottery lottery);
+
+    int deleteLottery(int id);
 }

@@ -1,5 +1,6 @@
 package com.szxfd.springboot.web.dao;
 
+import com.szxfd.springboot.web.entity.Prize;
 import com.szxfd.springboot.web.entity.PrizeCustom;
 import com.szxfd.springboot.web.entity.PrizeQueryVo;
 
@@ -64,4 +65,18 @@ public interface PrizeMapper {
      * @return
      */
     int queryPrizeCount(PrizeQueryVo prizeQueryVo);
+
+
+    /**
+     * 查询奖品列表
+     *
+     * @return
+     */
+    List<Prize> queryPrizes();
+
+    int insertPrize(Prize prize);
+
+    int updatePrize(Prize prize);
+
+    int deletePrize(int id);
 }

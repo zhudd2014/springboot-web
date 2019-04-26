@@ -10,7 +10,9 @@
  */
 package com.szxfd.springboot.web.service.impl;
 
+import com.szxfd.springboot.web.dao.LotteryMapper;
 import com.szxfd.springboot.web.entity.BaseResponse;
+import com.szxfd.springboot.web.entity.Lottery;
 import com.szxfd.springboot.web.entity.LotteryCustom;
 import com.szxfd.springboot.web.entity.LotteryQueryVo;
 import com.szxfd.springboot.web.manager.ILotteryManager;
@@ -18,6 +20,7 @@ import com.szxfd.springboot.web.service.ILotteryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -33,6 +36,9 @@ public class LotteryServiceImpl implements ILotteryService {
 
     @Autowired
     private ILotteryManager lotteryManager;
+
+    @Resource
+    private LotteryMapper lotteryMapper;
 
     @Override
     public BaseResponse<Integer> create(LotteryCustom lotteryCustom) {
@@ -81,6 +87,26 @@ public class LotteryServiceImpl implements ILotteryService {
     @Override
     public BaseResponse<Boolean> updateAwardsAndWinners(LotteryCustom lotteryCustom) {
         return lotteryManager.updateAwardsAndWinners(lotteryCustom);
+    }
+
+    @Override
+    public List<Lottery> queryLotteryList() {
+        return lotteryMapper.getLotteryList();
+    }
+
+    @Override
+    public int insertLottery(Lottery lottery) {
+        return lotteryMapper.insertLottery(lottery);
+    }
+
+    @Override
+    public int updateLottery(Lottery lottery) {
+        return 0;
+    }
+
+    @Override
+    public int deleteLottery(int id) {
+        return 0;
     }
 
     @Override

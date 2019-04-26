@@ -74,6 +74,10 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
+    <sql id="all_keys">
+        `title`,`desc`,`banner`,`sponsor`,`open_type`,`open_date`,`open_participator_num`,`status`,`award`,`create_time`
+    </sql>
+
     <sql id="all_insert_keys">
         `title`,`desc`,`banner`,`sponsor`,`create_time`
     </sql>
@@ -145,5 +149,28 @@
         AND
 			`participant`.lottery_id=#{value}
     </select>
+
+    <!--查询所有-->
+    <select id="getLotteryList" resultType="com.szxfd.springboot.web.entity.Lottery">
+        SELECT * FROM `lottery`
+    </select>
+
+    <insert id="insertLottery" keyProperty="id" useGeneratedKeys="true"
+            parameterType="com.szxfd.springboot.web.entity.Lottery">
+        insert into `lottery`(
+        <include refid="all_keys"/>
+        )
+        values(#{title},#{desc},#{banner},#{sponsor},#{open_type},#{open_date},#{open_participator_num},#{status},#{award},sysdate())
+    </insert>
+
+<!--    <update id="updatePrize" parameterType="com.szxfd.springboot.web.entity.Prize">-->
+<!--        update `prize` set-->
+<!--        `title` = #{title}, `desc` = #{desc}, `price` = #{price}, `quantity` = #{quantity}, `update_time` = sysdate()-->
+<!--        where `id` = #{id}-->
+<!--    </update>-->
+
+<!--    <delete id="deletePrize" parameterType="int">-->
+<!--       DELETE FROM `prize` WHERE id = #{id}-->
+<!--    </delete>-->
 
 </mapper>
