@@ -108,12 +108,17 @@ public class ParticipantServiceImpl implements IParticipantService {
     }
 
     @Override
+    public List<Participant> queryParticipants() {
+        return participantMapper.queryAllParticipants();
+    }
+
+    @Override
     public List<Participant> queryParticipants(int id) {
         return participantMapper.queryParticipants(id);
     }
 
     @Override
-    public List<Participant> setParticipants(List<Integer> ids) {
-        return participantMapper.setParticipants(ids);
+    public Integer setParticipants(ParticipantPrize participantPrize) {
+        return participantMapper.setParticipants(participantPrize);
     }
 }

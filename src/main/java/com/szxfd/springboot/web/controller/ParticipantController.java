@@ -16,8 +16,6 @@ import com.szxfd.springboot.web.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * 〈一句话功能简述〉<br>
  * 〈〉
@@ -26,6 +24,7 @@ import java.util.List;
  * @create 2019/3/23
  * @since 1.0.0
  */
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/participant")
 public class ParticipantController {
@@ -59,14 +58,20 @@ public class ParticipantController {
         return participantService.queryParticipantCount(participantQueryVo);
     }
 
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public Result queryAllParticipants() {
+        return ResultUtil.success(participantService.queryParticipants());
+    }
+
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
     public Result queryParticipants(@PathVariable int id) {
         return ResultUtil.success(participantService.queryParticipants(id));
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Result setParticipants(@RequestBody List<Integer> ids) {
-        List<Participant> participantList = participantService.setParticipants(ids);
+    @RequestMapping(value = "/setParticipants", method = RequestMethod.POST)
+    public Result setParticipants(@RequestBody ParticipantPrize participantPrize) {
+        Integer participantList = participantService.setParticipants(participantPrize);
+
         return ResultUtil.success(participantList);
     }
 }

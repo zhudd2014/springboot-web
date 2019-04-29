@@ -92,6 +92,8 @@ public interface LotteryMapper {
 
     List<Lottery> getLotteryList();
 
+    Lottery getLotteryById(int id);
+
     int insertLottery(Lottery lottery);
 
     int updateLottery(Lottery lottery);

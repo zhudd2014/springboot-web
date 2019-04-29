@@ -81,10 +81,19 @@
     <!--`title` = #{title} and `desc` = #{desc} and `price` = #{price} and `quantity` = #{quantity} and `update_time` = sysdate()-->
     <!--</update>-->
 
+    <select id="queryAllParticipants" resultType="com.szxfd.springboot.web.entity.Participant">
+        SELECT * FROM `participant`
+    </select>
+
     <select id="queryParticipants" parameterType="int" resultType="com.szxfd.springboot.web.entity.Participant">
         SELECT * FROM `participant` WHERE lottery_id = #{id}
     </select>
 
-
+    <update id="setParticipants" parameterType="com.szxfd.springboot.web.entity.ParticipantPrize" >
+        update `participant` set `prize_level` = #{prize_level} where id in
+        <foreach collection="ids" item="participant_id" open="(" separator="," close=")">
+            #{participant_id}
+        </foreach>
+    </update>
 
 </mapper>

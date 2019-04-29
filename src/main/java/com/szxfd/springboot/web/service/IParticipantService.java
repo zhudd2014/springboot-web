@@ -57,7 +57,8 @@ public interface IParticipantService {
     BaseResponse<Integer> queryParticipantCount(ParticipantQueryVo participantQueryVo);
 
 
+    List<Participant> queryParticipants();
     List<Participant> queryParticipants(int id);
 
-    List<Participant> setParticipants(List<Integer> ids);
+    Integer setParticipants(ParticipantPrize participantPrize);
 }

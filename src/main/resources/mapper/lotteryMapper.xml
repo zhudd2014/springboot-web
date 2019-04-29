@@ -173,4 +173,15 @@
 <!--       DELETE FROM `prize` WHERE id = #{id}-->
 <!--    </delete>-->
 
+    <!--查询所有-->
+    <select id="getLotteryById" resultType="com.szxfd.springboot.web.entity.Lottery">
+        SELECT * FROM `lottery` WHERE id = #{id}
+    </select>
+
+    <update id="updateLottery" parameterType="com.szxfd.springboot.web.entity.Lottery">
+        update `lottery`
+        set `status`=#{status}
+        where `id` = #{id}
+    </update>
+
 </mapper>

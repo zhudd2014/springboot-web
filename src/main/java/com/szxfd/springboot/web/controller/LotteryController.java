@@ -38,6 +38,11 @@ public class LotteryController {
         return ResultUtil.success(lotteryService.queryLotteryList());
     }
 
+    @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
+    public Result queryLotteryListById(@PathVariable int id) {
+        return ResultUtil.success(lotteryService.getLotteryById(id));
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Result createLottery(@RequestBody Lottery lottery) {
         int index = lotteryService.insertLottery(lottery);
@@ -45,7 +50,7 @@ public class LotteryController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Result update(@PathVariable String id, @RequestBody Lottery lottery) {
+    public Result update(@PathVariable int id, @RequestBody Lottery lottery) {
         int index = lotteryService.updateLottery(lottery);
         return ResultUtil.success(lottery);
     }
@@ -56,4 +61,10 @@ public class LotteryController {
         return ResultUtil.success();
     }
 
+    @RequestMapping(value = "/set/{id}", method = RequestMethod.GET)
+    public Result setLottery(@PathVariable int id) {
+//        int index = lotteryService.updateLottery(lottery);
+        lotteryService.setLottery(id);
+        return ResultUtil.success();
+    }
 }

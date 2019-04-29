@@ -85,6 +85,6 @@ CREATE TABLE `participant`  (
 -- ----------------------------
 -- Records of participant
 -- ----------------------------
-INSERT INTO `participant` VALUES (1, 1, '春节抽奖', 1, '张三', NULL, '2019-03-24 22:31:38', '2019-03-24 22:31:38', NULL, b'0');
-INSERT INTO `participant` VALUES (2, 1, '春节抽奖', 2, '张三丰', NULL, '2019-03-24 22:32:29', '2019-03-24 22:32:29', NULL, b'0');
+INSERT INTO `participant` VALUES (2, '五一劳动节福利', 1, 'xyh', 0, '2019-03-24 22:31:38', '2019-03-24 22:31:38', NULL, b'0');
+INSERT INTO `participant` VALUES (2, '五一劳动节福利', 2, 'fsj', 0, '2019-03-24 22:32:29', '2019-03-24 22:32:29', NULL, b'0');
 

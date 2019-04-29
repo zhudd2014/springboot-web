@@ -109,9 +109,13 @@ public interface ILotteryService {
 
     List<Lottery> queryLotteryList();
 
+    Lottery getLotteryById(int id);
+
     int insertLottery(Lottery lottery);
 
     int updateLottery(Lottery lottery);
 
     int deleteLottery(int id);
+
+    int setLottery(int id);
 }
