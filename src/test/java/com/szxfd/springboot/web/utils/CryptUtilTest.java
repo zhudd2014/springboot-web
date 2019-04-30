@@ -173,29 +173,29 @@ public class CryptUtilTest {
 
     @Test
     public void rsaTest() {
-        rsaInit();
-        String data = "我是RSA加密测试demo涉及到开发卡洛斯的卡夫卡临水临电分开了" +
+//        rsaInit();
+//        String data = "我是RSA加密测试demo涉及到开发卡洛斯的卡夫卡临水临电分开了" +
 //                "水电费可快速贷款福克斯考虑到分类啥地方开始老地方开始上刊登了富士康的理发师可贷款分类收款打款福克斯浪蝶狂蜂克里斯多夫开始的开放开始看到付款斯柯达" +
 //                "卡到福克斯开发商的卡夫卡啥地方开始卡到福克斯快递费会计师快递费会计师快递费看看上岛咖啡开始的疯狂说了带份开始打" +
 //                "萨克等级分开始的看法就开始打开了房间围殴if为将诶烦恼深圳开发教教我和覅时代峰峻爱上你的缴费为深刻的附件为IE副驾驶上课的风景斯蒂芬" +
 //                "的斯蒂芬搜到佛萨克代理费克里斯多夫涉及到付款金额if就是快等级分开始京东方in上岛咖啡就开始高科技sad开个卡十多个" +
-                "盛开的观看撒娇的洛凯股份卡萨丁公开撒打开了规范卡萨丁宏观我按时间欧迪芬萨克的股份刷卡机都看过了可视对讲覆盖is阿丹姐";
-        byte[] bytes = data.getBytes();
-        byte[] encryptByte = CryptUtil.rsaEncrypt(bytes, mPrivate);
+//                "盛开的观看撒娇的洛凯股份卡萨丁公开撒打开了规范卡萨丁宏观我按时间欧迪芬萨克的股份刷卡机都看过了可视对讲覆盖is阿丹姐";
+//        byte[] bytes = data.getBytes();
+//        byte[] encryptByte = CryptUtil.rsaEncrypt(bytes, mPrivate);
 
         //要使用Base64来进行编码，如果不这样做就会显示乱码
         //String encryptString = new String(encryptByte);//这里产生乱码
-        String encryptString = Base64.getEncoder().encodeToString(encryptByte);
-
-        System.out.println(CLASS_NAME + "RSA加密后:" + encryptString);
+//        String encryptString = Base64.getEncoder().encodeToString(encryptByte);
+//
+//        System.out.println(CLASS_NAME + "RSA加密后:" + encryptString);
 
         //解密：
         //要使用Base64来进行解码，如果不这样做就会显示乱码
         //byte[] sourceBytes = encryptString.getBytes();//这里会报错java.lang.ArrayIndexOutOfBoundsException: too much data for RSA block
-        byte[] sourceBytes = Base64.getDecoder().decode(encryptString.getBytes());
-        byte[] decryptBytes = CryptUtil.rsaDecrypt(sourceBytes, mPublic);
-        String decryptString = new String(decryptBytes);
-        System.out.println(CLASS_NAME + "RSA解密后:" + decryptString);
+//        byte[] sourceBytes = Base64.getDecoder().decode(encryptString.getBytes());
+//        byte[] decryptBytes = CryptUtil.rsaDecrypt(sourceBytes, mPublic);
+//        String decryptString = new String(decryptBytes);
+//        System.out.println(CLASS_NAME + "RSA解密后:" + decryptString);
     }
 
 

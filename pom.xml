@@ -167,6 +167,27 @@
 <!--                    </execution>-->
 <!--                </executions>-->
 <!--            </plugin>-->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <!--
+                        com.sun.org.apache.xml.internal.security.utils.Base64;编译异常
+                        将jre/lib/rt.jar添加到maven的compiler里面  编译正常..。
+                    -->
+                    <compilerArguments>
+                        <verbose />
+<!--                        <bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</bootclasspath>-->
+                        <bootclasspath>${java.home}/lib/rt.jar:${java.home}/lib/jce.jar</bootclasspath>
+                    </compilerArguments>
+
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
